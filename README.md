@@ -1,4 +1,4 @@
-# Personal Webpage | [Access Here](https://kaviraj07.github.io/Gosaye-Kaviraj/)
+# Personal Webpage | [Access Here](https://kaviraj07.github.io)
 
 This is a personal webpage built from scratch. It features work experiences, personal and group projects as well as competitions that I participated.
 
@@ -8,4 +8,4 @@ This is a personal webpage built from scratch. It features work experiences, per
 3. CSS animations/designs
 4. Deployment using github pages
 
-## Link to Website: [Click Here](https://kaviraj07.github.io/Gosaye-Kaviraj/)
+## Link to Website: [Click Here](https://kaviraj07.github.io)
