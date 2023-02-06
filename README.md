@@ -9,3 +9,8 @@ This is a personal webpage built from scratch. It features work experiences, per
 4. Deployment using github pages
 
 ## Link to Website: [Click Here](https://kaviraj07.github.io)
+
+## Resources:
+Icons from:
+1. [Icons8](https://icons8.com/) 
+2. [UXWing](https://uxwing.com/)
