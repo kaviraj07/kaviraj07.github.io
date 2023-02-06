@@ -189,6 +189,7 @@ nav ul li a:hover::before {
     line-height: 50px;
     justify-self: center;
     color: var(--enhance-color);
+    text-align: justify;
 }
 
 .block-main .profile-img {
@@ -445,6 +446,7 @@ img {
 .card .content {
     padding: 1rem;
     color: var(--text-color);
+    text-align: justify;
 }
 
 .card footer {
