@@ -193,7 +193,7 @@ nav ul li a:hover::before {
 
 .block-main .profile-img {
     margin: 30px 50px;
-    height: 100%;
+    height: auto;
     min-width: 100px;
     min-height: 250px;
     max-height: 470px;
@@ -630,6 +630,7 @@ a {
     }
     .block-main .profile-img {
         height: 50%;
+        width: auto;
         min-width: 50px;
         min-height: 50px;
         min-height: 250px;
@@ -782,7 +783,8 @@ a {
         text-align: justify;
     }
     .block-main .profile-img {
-        height: 75%;
+        height: 50%;
+        width: auto;
         min-width: 50px;
         min-height: 50px;
         min-height: 250px;
