@@ -2,8 +2,8 @@
     --main-font: 'Manrope', sans-serif;
     --secondary-font: 'Stratoslcweb', sans-serif;
     --gradient: linear-gradient(to bottom, var(--secondary-color) 70%, var(--background-gradient));
-    --gradient2: linear-gradient( 180deg, var(--background-gradient) 11%, var(--background-gradient) 67%, var(--secondary-color));
-    --gradient3: linear-gradient( 180deg, var(--secondary-color) 5%, var(--background-gradient) 80%, var(--secondary-color));
+    --gradient2: linear-gradient(180deg, var(--background-gradient) 11%, var(--background-gradient) 67%, var(--secondary-color));
+    --gradient3: linear-gradient(180deg, var(--secondary-color) 5%, var(--background-gradient) 80%, var(--secondary-color));
     --primary-color: #7b61ff;
     --secondary-color: black;
     --text-color: rgba(255, 255, 255, 0.6);
@@ -17,8 +17,8 @@
     --main-font: 'Manrope', sans-serif;
     --secondary-font: 'Stratoslcweb', sans-serif;
     --gradient: linear-gradient(to bottom, var(--secondary-color) 70%, var(--background-gradient));
-    --gradient2: linear-gradient( 180deg, var(--background-gradient) 11%, var(--background-gradient) 67%, var(--secondary-color));
-    --gradient3: linear-gradient( 180deg, var(--secondary-color) 5%, var(--background-gradient) 80%, var(--secondary-color));
+    --gradient2: linear-gradient(180deg, var(--background-gradient) 11%, var(--background-gradient) 67%, var(--secondary-color));
+    --gradient3: linear-gradient(180deg, var(--secondary-color) 5%, var(--background-gradient) 80%, var(--secondary-color));
     --primary-color: #7b61ff;
     --secondary-color: white;
     --text-color: black;
@@ -43,7 +43,8 @@ html {
     min-height: 100vh;
     width: 100%;
     background-image: var(--gradient);
-    padding-bottom: 70px;
+    /* padding-bottom: 70px; */
+
 }
 
 #top a {
@@ -138,9 +139,20 @@ nav ul li a:hover::before {
     transform: scaleX(1);
 }
 
-.block-main {
-    padding-left: 50px;
+.block-wrapper {
+
+    height: 75vh;
+    display: grid;
     align-items: center;
+    justify-items: center;
+    /* background-color: red; */
+}
+
+.block-wrapper .block-main {
+    align-self: center;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
     display: grid;
 }
 
@@ -168,32 +180,35 @@ nav ul li a:hover::before {
     from {
         max-width: 0
     }
+
     to {
         max-width: 75%
     }
 }
 
 @keyframes blink-caret {
+
     from,
     to {
         border-color: transparent
     }
+
     50% {
         border-color: var(--primary-color);
     }
 }
 
 .block-main .welcome-text p {
-    width: 80%;
+    width: 70%;
     font-size: 30px;
     line-height: 50px;
     justify-self: center;
     color: var(--enhance-color);
-    text-align: justify;
+    text-align: left;
 }
 
 .block-main .profile-img {
-    margin: 30px 50px;
+    margin: 30px 70px;
     height: auto;
     min-width: 100px;
     min-height: 250px;
@@ -201,6 +216,7 @@ nav ul li a:hover::before {
     grid-column: 2;
     columns: 2;
     border-radius: 25%;
+    justify-content: center;
 }
 
 #work {
@@ -580,6 +596,7 @@ a {
         margin: 0%;
         padding: 0%;
     }
+
     .hero nav ul {
         height: 100vh;
         position: fixed;
@@ -594,42 +611,58 @@ a {
         transition: top 1s ease;
         display: none;
     }
+
     .hero nav ul .closeMenu {
         display: block;
         position: absolute;
         top: 20px;
         right: 20px;
     }
+
     nav .openMenu {
         display: block;
     }
+
     .hero nav #top a {
         font-size: 20px;
     }
+
     .hero nav img {
         height: 25px;
     }
+
+    .block-wrapper {
+        height: 75vh;
+        display: grid;
+        align-items: center;
+        justify-items: center;
+    }
+
     .block-main {
         margin: 0%;
         padding: 0%;
         row-gap: 20px;
         height: 75vh;
     }
+
     .block-main .welcome-text {
         display: grid;
         grid-column: 1;
         grid-row: 1;
         color: var(--enhance-color);
     }
+
     .block-main .welcome-text h1 {
         color: var(--primary-color);
         font-size: 20px;
     }
+
     .block-main .welcome-text p {
         font-size: 15px;
         line-height: normal;
         text-align: justify;
     }
+
     .block-main .profile-img {
         height: 50%;
         width: auto;
@@ -645,6 +678,7 @@ a {
         justify-self: center;
         display: flex;
     }
+
     #skills-wrapper {
         padding-top: 5%;
         justify-content: center;
@@ -652,28 +686,35 @@ a {
         grid-template-columns: 100%;
         gap: 20px;
     }
+
     #contact {
         height: 40vh;
         padding: 0%;
     }
+
     #contact div {
         padding: 0px 10px 0px 10px;
         gap: 5px;
     }
+
     .timeline-items::before {
         left: 7px;
     }
+
     .timeline-item:nth-child(odd) {
         padding-right: 0;
         text-align: left;
     }
+
     .timeline-item:nth-child(odd),
     .timeline-item:nth-child(even) {
         padding-left: 37px;
     }
+
     .timeline-dot {
         left: 0;
     }
+
     .cards {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -683,6 +724,7 @@ a {
         margin: 1em auto;
         font-size: small;
     }
+
     .comp-cards {
         padding-top: 0%;
         max-width: 100%;
@@ -692,41 +734,53 @@ a {
         margin: 1em auto;
         font-size: small;
     }
+
     [class ^="skill"] p {
         font-size: small;
     }
+
     [class ^="exp"] {
         padding: 20px;
     }
+
     [class ^="exp"] legend {
         font-size: 20px;
         text-align: center;
     }
+
     [class ^="exp"] h3 {
         font-size: medium;
     }
+
     [class ^="exp"] h4 {
         font-size: small;
     }
+
     [class ^="exp"] ul {
         font-size: smaller;
     }
+
     [class ^="pub"] {
         padding: 20px;
     }
+
     [class ^="pub"] legend {
         font-size: 20px;
         text-align: center;
     }
+
     [class ^="pub"] h3 {
         font-size: medium;
     }
+
     [class ^="pub"] h4 {
         font-size: small;
     }
+
     [class ^="pub"] p {
         font-size: smaller;
     }
+
     [class ^="pub"] footer {
         width: 75%;
     }
@@ -740,6 +794,7 @@ a {
         margin: 0%;
         padding: 0%;
     }
+
     .hero nav ul {
         height: 100vh;
         position: fixed;
@@ -754,36 +809,50 @@ a {
         transition: top 1s ease;
         display: none;
     }
+
     .hero nav ul .closeMenu {
         display: block;
         position: absolute;
         top: 20px;
         right: 20px;
     }
+
     nav .openMenu {
         display: block;
     }
+
+    .block-wrapper {
+        height: 75vh;
+        display: grid;
+        align-items: center;
+        justify-items: center;
+    }
+    
     .block-main {
         margin: 0%;
         padding: 0%;
         row-gap: 20px;
         height: 75vh;
     }
+
     .block-main .welcome-text {
         display: grid;
         grid-column: 1;
         grid-row: 1;
         color: var(--enhance-color);
     }
+
     .block-main .welcome-text h1 {
         color: var(--primary-color);
         font-size: 20px;
     }
+
     .block-main .welcome-text p {
         font-size: 15px;
         line-height: normal;
         text-align: justify;
     }
+
     .block-main .profile-img {
         height: 50%;
         width: auto;
@@ -799,6 +868,7 @@ a {
         justify-self: center;
         display: flex;
     }
+
     #skills-wrapper {
         padding-top: 5%;
         justify-content: center;
@@ -806,10 +876,12 @@ a {
         grid-template-columns: 100%;
         gap: 20px;
     }
+
     #contact {
         height: 40vh;
         padding: 0%;
     }
+
     .cards {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -819,6 +891,7 @@ a {
         margin: 1em auto;
         font-size: small;
     }
+
     .comp-cards {
         padding-top: 0%;
         max-width: 100%;
@@ -828,9 +901,11 @@ a {
         margin: 1em auto;
         font-size: small;
     }
+
     [class ^="skill"] p {
         font-size: small;
     }
+
     #skills-wrapper {
         padding-top: 5%;
         justify-content: center;
@@ -838,6 +913,7 @@ a {
         grid-template-columns: repeat(2, 50%);
         gap: 20px;
     }
+
     [class ^="pub"] legend {
         text-align: center;
     }
@@ -858,12 +934,14 @@ a {
         transition: top 1s ease;
         display: none;
     }
+
     .hero nav ul .closeMenu {
         display: block;
         position: absolute;
         top: 20px;
         right: 20px;
     }
+
     nav .openMenu {
         display: block;
     }
