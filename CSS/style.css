@@ -147,7 +147,6 @@ nav ul li a:hover::before {
     display: grid;
     align-items: center;
     justify-items: center;
-    /* background-color: red; */
 }
 
 .block-wrapper .block-main {
@@ -201,7 +200,7 @@ nav ul li a:hover::before {
 }
 
 .block-main .welcome-text p {
-    width: 70%;
+    width: 80%;
     font-size: 30px;
     line-height: 50px;
     justify-self: center;
@@ -210,14 +209,14 @@ nav ul li a:hover::before {
 }
 
 .block-main .profile-img {
-    margin: 30px 70px;
+    margin: 30px 170px;
     height: auto;
     min-width: 100px;
     min-height: 250px;
     max-height: 470px;
     grid-column: 2;
     columns: 2;
-    border-radius: 25%;
+    border-radius: 15%;
     justify-content: center;
 }
 
@@ -271,6 +270,17 @@ nav ul li a:hover::before {
     min-height: 100vh;
     background-color: var(--secondary-color);
     color: var(--text-color);
+}
+
+#awards {
+    padding: 50px;
+    min-height: 100vh;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+#awards #pub-wrapper .pub #question {
+    font-style: italic;
 }
 
 #pub-wrapper {
@@ -678,7 +688,7 @@ a {
         max-height: 470px;
         grid-column: 1;
         grid-row: 2;
-        border-radius: 25%;
+        border-radius: 15%;
         margin: 0%;
         padding: 0%;
         justify-self: center;
@@ -795,7 +805,7 @@ a {
 
 /* responsiveness for tablets */
 
-@media only screen and (min-width: 740px) and (max-width: 1024px) {
+@media only screen and (min-width: 740px) and (max-width: 1366px) {
     * {
         margin: 0%;
         padding: 0%;
@@ -868,7 +878,7 @@ a {
         max-height: 470px;
         grid-column: 1;
         grid-row: 2;
-        border-radius: 25%;
+        border-radius: 15%;
         margin: 0%;
         padding: 0%;
         justify-self: center;
