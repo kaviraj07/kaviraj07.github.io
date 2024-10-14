@@ -11,6 +11,7 @@
     --enhance-color: white;
     --hover-color: #7b61ff;
     --shadow-color: rgb(0 29 255 / 73%);
+    --icon-fill-color: white;
 }
 
 .light-mode {
@@ -26,6 +27,7 @@
     --enhance-color: black;
     --hover-color: rgb(0 29 255 / 13%);
     --shadow-color: rgb(0 29 255 / 35%);
+    --icon-fill-color: black;
 }
 
 * {
@@ -423,6 +425,10 @@ nav ul li a:hover::before {
     padding: 50px;
     background-image: var(--gradient3);
     color: var(--text-color);
+}
+
+#rosIcon {
+    fill: var(--icon-fill-color);
 }
 
 img {
@@ -827,7 +833,7 @@ a {
         align-items: center;
         justify-items: center;
     }
-    
+
     .block-main {
         margin: 0%;
         padding: 0%;
