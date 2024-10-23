@@ -372,6 +372,10 @@ nav ul li a:hover::before {
 
 .timeline-item:nth-child(odd) {
     padding-right: calc(50% + 30px);
+    /* text-align: right; */
+}
+
+.timeline-item:nth-child(odd) .timeline-date {
     text-align: right;
 }
 
