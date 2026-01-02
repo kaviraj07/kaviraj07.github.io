@@ -1,10 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   color-scheme: light;
 }
+
 .dark {
   color-scheme: dark;
 }
@@ -16,6 +16,7 @@ body {
     radial-gradient(60rem 60rem at 90% 20%, rgba(236, 72, 153, 0.10), transparent 55%),
     radial-gradient(60rem 60rem at 20% 90%, rgba(59, 130, 246, 0.08), transparent 55%);
 }
+
 .dark body {
   background-image:
     radial-gradient(60rem 60rem at 10% 10%, rgba(167, 139, 250, 0.18), transparent 55%),
