@@ -1,0 +1,307 @@
+{
+  "name": "Kaviraj Gosaye",
+  "tagline": "Graduate Data Engineer • MSc AI • Google DeepMind Scholar",
+  "aboutme": "I’m a Graduate Data Engineer with an AI background, focused on building scalable data workflows and end-to-end solutions. I enjoy working across data, software and ML, especially where clean engineering unlocks real-world impact.",
+  "branding": {
+    "monogram": "KG",
+    "logo": "/Assets/logo.PNG",
+    "profile": "/Assets/profile.png"
+  },
+  "themeIcons": {
+    "sun": "/Assets/sun.png",
+    "moon": "/Assets/moon.png"
+  },
+  "socials": [
+    {
+      "label": "Email",
+      "href": "mailto:kavirajgosaye@gmail.com",
+      "icon": "/Assets/mail.svg"
+    },
+    {
+      "label": "Facebook",
+      "href": "https://www.facebook.com/kaviraj.gosaye",
+      "icon": "/Assets/facebook.svg"
+    },
+    {
+      "label": "Twitter",
+      "href": "https://twitter.com/GosayeKaviraj",
+      "icon": "/Assets/twitter.svg"
+    },
+    {
+      "label": "Instagram",
+      "href": "https://www.instagram.com/kaviraj_0078/",
+      "icon": "/Assets/instagram.svg"
+    },
+    {
+      "label": "Linkedin",
+      "href": "https://www.linkedin.com/in/kavirajgosaye/",
+      "icon": "/Assets/linkedin.svg"
+    },
+    {
+      "label": "Github",
+      "href": "https://github.com/kaviraj07",
+      "icon": "/Assets/github.svg"
+    }
+  ],
+  "skills": [
+    {
+      "label": "Python",
+      "icon": "/Assets/python.svg"
+    },
+    {
+      "label": "PyTorch",
+      "icon": "/Assets/pytorch.svg"
+    },
+    {
+      "label": "Scikit-Learn",
+      "icon": "/Assets/scikitlearn.svg"
+    },
+    {
+      "label": "MLflow",
+      "icon": "/Assets/mlflow.svg"
+    },
+    {
+      "label": "Keras",
+      "icon": "/Assets/keras.png"
+    },
+    {
+      "label": "TensorFlow",
+      "icon": "/Assets/tensorflow.svg"
+    },
+    {
+      "label": "ROS",
+      "icon": null
+    },
+    {
+      "label": "OpenCV",
+      "icon": "/Assets/opencv.svg"
+    },
+    {
+      "label": "Git",
+      "icon": "/Assets/git.svg"
+    },
+    {
+      "label": "Java",
+      "icon": "/Assets/java.svg"
+    },
+    {
+      "label": "MySQL",
+      "icon": "/Assets/mysql.svg"
+    },
+    {
+      "label": "C#",
+      "icon": "/Assets/c-sharp.svg"
+    }
+  ],
+  "work": [
+    {
+      "role": "Associate Software Developer",
+      "company": "Dayforce (formerly Ceridian Mauritius)",
+      "date": "SEPT 2021 - APR 2022",
+      "bullets": [
+        "Training on C# and Asp.net received prior to immersion into company",
+        "Worked on coding automation tests for DayForce payroll system",
+        "Selenium, SpecFlow and FitNesse tools were used to execute test cases",
+        "Azure DevOps was used as Project Management tool"
+      ]
+    },
+    {
+      "role": "Web Master Intern",
+      "company": "Proximity BBDO Indian Ocean",
+      "date": "JUN 2019 - JUL 2019",
+      "bullets": [
+        "Worked collaboratively with web mastering team",
+        "Web pages for specific companies were created and populated based on company requirements",
+        "CMS tools that were used are SiteCore and Umbraco",
+        "Jira tool was used as Project Management tool"
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "title": "Google DeepMind Scholarship 2023-2024",
+      "body": [
+        "Recipient of the fully funded Google DeepMind Scholarship for the MSc Artificial Intelligence at Queen Mary University of London.",
+        "\"The DeepMind Scholarship means all to me. Without it, I would never have been able to experience studying abroad in the UK at such a prestigious university. The scholarship represents hope for academic learners like me who wish to pursue further studies. Getting this scholarship is inspiring considering that I am from Mauritius, a small African island in the Indian Ocean and this recognition truly humbles me.\""
+      ]
+    }
+  ],
+  "publications": [
+    {
+      "venue": "International Conference for Advancement in Technology (ICONAT) 2022",
+      "details": [
+        "Title: A Mobile Application for Fruit Fly Identification using Deep Transfer Learning: A Case Study for Mauritius",
+        "This paper describes a fruit fly identification system using Deep Learning. The system is deployed on a mobile application. The main usage of such application is to identify and counteract against fruit flies that cause harm to agriculture and the economy."
+      ],
+      "links": [
+        {
+          "label": "View paper",
+          "href": "https://ieeexplore.ieee.org/document/9725945"
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "MSc Artificial Intelligence",
+      "date": "OCT 2024",
+      "details": [
+        "Master of Science at Queen Mary University of London",
+        "Recipient of the Google DeepMind Scholarship",
+        "Specialization in Vision and Robotics",
+        "Classification: Distinction"
+      ]
+    },
+    {
+      "title": "BSc Applied Computing",
+      "date": "OCT 2021",
+      "details": [
+        "Bachelor of Science at the University of Mauritius",
+        "Classification: First Class with Honours"
+      ]
+    },
+    {
+      "title": "Deep Learning Short Course",
+      "date": "DEC 2019",
+      "details": [
+        "5-Days Deep Learning Short Course organised by University of Mauritius and HRDC",
+        "Delivered by guest lecturer Dr Wilie Brinks from University of Stellenboch"
+      ]
+    },
+    {
+      "title": "BCS Certificate in IT",
+      "date": "JAN 2019",
+      "details": [
+        "First Level of the British Computer Society Exam",
+        "Modules: Infomation Systems, Software Development, Computer and Network Technology"
+      ]
+    },
+    {
+      "title": "Cambridge International Examinations - Higher School Certificate",
+      "date": "DEC 2016",
+      "details": [
+        "A-Levels at Mahatma Gandhi Institute (MGI) Moka",
+        "Ranked 420ᵗʰ on the Mauritius Top 500 Order List",
+        "Main Subjects: Computer Science - A*, Mathematics - A*, Physics - A",
+        "Subsidiary: French - A, General Paper - A"
+      ]
+    },
+    {
+      "title": "Cambridge International Examinations - School Certificate",
+      "date": "DEC 2014",
+      "details": [
+        "O-Levels at Mahatma Gandhi Institute (MGI) Moka",
+        "Subjects: English, Maths, Add Maths, French, Hindi, Computer Studies, Chemistry"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Deeper Networks for Image Classification",
+      "image": "/Assets/model.png",
+      "description": "This is an analysis of Convolutional Neural Networks (CNNs) on the MNIST and CIFAR10 datasets. The project evaluates the performance of four models: InceptionV3, VGG16, ResNet50, and MobileNetV2",
+      "links": [
+        {
+          "label": "View Project",
+          "href": "https://github.com/kaviraj07/deep_nets_for_img_classification"
+        }
+      ]
+    },
+    {
+      "title": "Vision Toolkit",
+      "image": "/Assets/vision-toolkit.jpg",
+      "description": "Vision Toolkit is a project showcasing various basic computer vision tools. The toolkit includes: 1. Image Rotation, 2. Convolution and Filters, 3. Color Histogram, 4. Similarity Descriptor, 5. Background Extractor",
+      "links": [
+        {
+          "label": "Use Toolkit",
+          "href": "https://vision-toolkit.streamlit.app/"
+        }
+      ]
+    },
+    {
+      "title": "AI Route Finder",
+      "image": "/Assets/map-network.png",
+      "description": "This project is an AI route finder for the London Tube using an agenda-based search mechanism. It implements and compares four algorithms: 1. Breadth-First Search (BFS), 2. Depth-First Search (DFS), 3. Uniform Cost Search (UCS), 4. Best-First Search (Heuristic Search)",
+      "links": [
+        {
+          "label": "View Project",
+          "href": "https://github.com/kaviraj07/Agenda_Based_Search_London_Tube"
+        }
+      ]
+    },
+    {
+      "title": "Apes Anticipation Simulation",
+      "image": "/Assets/apes-exp.png",
+      "description": "ROS package simulates an experiment to test if great apes can anticipate human false beliefs using a Bayesian network.",
+      "links": [
+        {
+          "label": "View Project",
+          "href": "https://github.com/kaviraj07/apes_anticipation_exp"
+        }
+      ]
+    },
+    {
+      "title": "Fruit Fly Application",
+      "image": "/Assets/fly.jpg",
+      "description": "A Flutter mobile application that allows identification of fruit flies using Deep Learning.",
+      "links": [
+        {
+          "label": "View Video",
+          "href": "https://youtu.be/fGyr3NALRrw"
+        }
+      ]
+    },
+    {
+      "title": "Infinity Robot",
+      "image": "/Assets/roboticArm.png",
+      "description": "An automatic seeding machine that makes use of a rover, a robot arm and sensors. This project won the first prize in UoM Hackathon 2020 and was presented for UoM Robotics Lab launching ceremony.",
+      "links": [
+        {
+          "label": "View Website",
+          "href": "https://infinity-robot.web.app/"
+        }
+      ]
+    }
+  ],
+  "competitions": [
+    {
+      "title": "UoM Web Competition",
+      "image": "/Assets/web.jpg",
+      "description": "Winner of the UoM Web Competition in 2019. A website had to be developed in 24hrs from scratch.",
+      "links": [
+        {
+          "label": "View Project",
+          "href": "https://github.com/kaviraj07/mo-portal"
+        }
+      ]
+    },
+    {
+      "title": "MCB InovApp Competition",
+      "image": "/Assets/inovapp.jpg",
+      "description": "A 48 hour competition organised by the MCB where ideas are developed and pitched.",
+      "links": [
+        {
+          "label": "View Project",
+          "href": "https://github.com/kaviraj07/MCB-InovApp"
+        }
+      ]
+    },
+    {
+      "title": "UoM App Competition",
+      "image": "/Assets/appcup.jpg",
+      "description": "A 24 hour competition to develop a mobile application related to the SDGs.",
+      "links": []
+    },
+    {
+      "title": "UoM Hackathon",
+      "image": "/Assets/hackathon.jpg",
+      "description": "Winner of the 3-days long competition to develop an innovative solution on the topic of Agriculture.",
+      "links": [
+        {
+          "label": "Link",
+          "href": "https://www.facebook.com/watch/?v=211085763796414"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+}
+
+/* Subtle background texture (purple accent like the original site) */
+body {
+  background-image:
+    radial-gradient(60rem 60rem at 10% 10%, rgba(124, 58, 237, 0.14), transparent 55%),
+    radial-gradient(60rem 60rem at 90% 20%, rgba(236, 72, 153, 0.10), transparent 55%),
+    radial-gradient(60rem 60rem at 20% 90%, rgba(59, 130, 246, 0.08), transparent 55%);
+}
+.dark body {
+  background-image:
+    radial-gradient(60rem 60rem at 10% 10%, rgba(167, 139, 250, 0.18), transparent 55%),
+    radial-gradient(60rem 60rem at 90% 20%, rgba(244, 114, 182, 0.10), transparent 55%),
+    radial-gradient(60rem 60rem at 20% 90%, rgba(96, 165, 250, 0.08), transparent 55%);
+}
+
+/* Nice focus */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 12px;
+}
