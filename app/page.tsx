@@ -3,6 +3,11 @@ import Link from "next/link"
 import { siteData } from "@/lib/site"
 import { getAllPostMeta } from "@/lib/posts"
 
+export const metadata = {
+  title: siteData.name,
+  description: siteData.tagline,
+}
+
 export const dynamic = "error"
 
 export default function HomePage() {
@@ -37,7 +42,7 @@ export default function HomePage() {
               {siteData.tagline}
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div data-nosnippet className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/projects"
                 className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-500 to-sky-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 hover:ring-1 hover:ring-violet-500 "
@@ -58,7 +63,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-2">
+            <div data-nosnippet className="mt-8 flex flex-wrap gap-2">
               {topSkills.map((s) => (
                 <span
                   key={s.label}
