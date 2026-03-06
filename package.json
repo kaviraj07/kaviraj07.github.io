@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/postcss": "^4.2.1",
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
     "next": "^16.1.6",
@@ -22,13 +22,13 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.13",
-    "@types/node": "^25.1.0",
-    "@types/react": "^19.2.10",
+    "@types/node": "^25.3.5",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.0.2",
-    "autoprefixer": "^10.4.24",
-    "eslint": "^9.17.0",
+    "autoprefixer": "^10.4.27",
+    "eslint": "^10.0.2",
     "eslint-config-next": "^16.1.6",
-    "postcss": "^8.4.49",
+    "postcss": "^8.5.8",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.7.2"
   }
