@@ -34,7 +34,7 @@ export function AwardPanel({
 
       <p className="t-meta text-signal">Award</p>
       <h3 className="mt-3 text-xl font-semibold tracking-tight sm:text-2xl">{title}</h3>
-      <p className="t-prose mt-4 max-w-2xl">{body}</p>
+      <p className="t-prose mt-4 max-w-5xl">{body}</p>
 
       {quote ? (
         <blockquote className="mt-6 border-l-2 border-signal-bright pl-5">
