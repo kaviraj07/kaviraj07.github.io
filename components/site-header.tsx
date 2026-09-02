@@ -1,23 +1,30 @@
-'use client'
+"use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { usePathname } from "next/navigation"
 import * as React from "react"
+import { Menu, X } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { cn } from "@/components/cn"
+import { cn } from "@/lib/utils"
 import { siteData } from "@/lib/site"
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/work", label: "Work" },
   { href: "/experience", label: "Experience" },
-  { href: "/projects", label: "Projects" },
-  { href: "/competitions", label: "Competitions" },
-  { href: "/skills", label: "Skills" },
-  { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
+  { href: "/blog", label: "Writing" },
   { href: "/contact", label: "Contact" },
 ]
+
+function isActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/"
+  if (href === "/work") {
+    return ["/work", "/projects", "/competitions"].some((p) => pathname.startsWith(p))
+  }
+  if (href === "/about") return ["/about", "/skills"].some((p) => pathname.startsWith(p))
+  return pathname.startsWith(href)
+}
 
 export function SiteHeader() {
   const pathname = usePathname()
@@ -25,84 +32,114 @@ export function SiteHeader() {
 
   React.useEffect(() => setOpen(false), [pathname])
 
-  return (
-    <header className="sticky top-0 z-50 border-b border-zinc-200/70 bg-purple-75 backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/60">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
-        <Link href="/" className="group flex items-center gap-3 font-semibold tracking-tight">
-          <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-2xl ring-1 ring-zinc-900/10 dark:ring-white/10">
-            <span className="absolute inset-0 bg-gradient-to-br from-violet-600 via-fuchsia-500 to-sky-500 opacity-90" />
-            {siteData.branding?.logo ? (
-              <Image
-                src={siteData.branding.logo}
-                alt={`${siteData.name} logo`}
-                width={24}
-                height={24}
-                className="relative h-6 w-6 object-contain"
-                priority
-              />
-            ) : (
-              <span className="relative text-sm font-black tracking-tight text-white">{siteData.branding?.monogram ?? "KG"}</span>
-            )}
-          </span>
+  React.useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false)
+    }
+    document.addEventListener("keydown", onKey)
+    return () => document.removeEventListener("keydown", onKey)
+  }, [open])
 
-          <span className="hidden text-sm font-semibold text-zinc-900 dark:text-zinc-100 sm:block">
+  return (
+    <header className="sticky top-0 z-50 border-b border-rule bg-paper/85 backdrop-blur-md">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
+        <Link
+          href="/"
+          className="group flex items-center gap-3"
+          aria-label={`${siteData.name} — home`}
+        >
+          {/* The monogram is set in the site's own display face rather than
+              the old raster logo, which was drawn for a different palette. */}
+          <span
+            aria-hidden
+            className="frame frame-hover grid h-9 w-9 shrink-0 place-items-center bg-raised"
+          >
+            <span className="t-monogram">{siteData.branding.monogram}</span>
+          </span>
+          {/* Name only: the hero's own eyebrow already reads "AI & software",
+              and the two sat within a second of each other on the home page. */}
+          <span
+            className="hidden text-sm font-semibold tracking-tight sm:block"
+            translate="no"
+          >
             {siteData.name}
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
-          {links.map((l) => {
-            const active = pathname === l.href
-            return (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={cn(
-                  "rounded-xl px-3 py-2 text-sm font-medium transition hover:bg-zinc-100 dark:hover:bg-zinc-900",
-                  active && "bg-zinc-100 dark:bg-zinc-900"
-                )}
-              >
-                {l.label}
-              </Link>
-            )
-          })}
+        <nav aria-label="Primary" className="hidden md:block">
+          <ul className="flex items-center gap-1">
+            {links.map((l) => {
+              const active = isActive(pathname, l.href)
+              return (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "t-meta relative block px-3 py-2 transition-colors hover:text-ink",
+                      active && "text-ink"
+                    )}
+                  >
+                    {l.label}
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "absolute inset-x-3 bottom-1 h-px origin-left scale-x-0 bg-signal-bright transition-transform duration-200",
+                        active && "scale-x-100"
+                      )}
+                    />
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
         </nav>
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-xl border border-zinc-200 bg-white/70 px-3 py-2 text-sm font-medium shadow-sm backdrop-blur transition hover:bg-white dark:border-zinc-800 dark:bg-zinc-950/50 dark:hover:bg-zinc-950 md:hidden"
+            className="frame frame-hover inline-flex h-9 w-9 items-center justify-center text-ink transition-colors hover:text-signal md:hidden"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Open menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            style={{ touchAction: "manipulation" }}
           >
-            Menu
+            {open ? <X size={16} aria-hidden /> : <Menu size={16} aria-hidden />}
           </button>
         </div>
       </div>
 
-      {open ? (
-        <div className="border-t border-zinc-200/70 px-4 py-2 dark:border-zinc-800/70 md:hidden">
-          <div className="mx-auto flex max-w-5xl flex-col gap-1">
+      <div
+        id="mobile-nav"
+        hidden={!open}
+        className="border-t border-rule bg-paper md:hidden"
+      >
+        <nav aria-label="Primary (mobile)" className="mx-auto w-full max-w-6xl px-5 py-2 sm:px-8">
+          <ul className="flex flex-col">
             {links.map((l) => {
-              const active = pathname === l.href
+              const active = isActive(pathname, l.href)
               return (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className={cn(
-                    "rounded-xl px-3 py-2 text-sm font-medium transition hover:bg-zinc-100 dark:hover:bg-zinc-900",
-                    active && "bg-zinc-100 dark:bg-zinc-900"
-                  )}
-                >
-                  {l.label}
-                </Link>
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "t-meta flex items-center justify-between border-b border-rule py-3 last:border-0 hover:text-ink",
+                      active && "text-signal"
+                    )}
+                  >
+                    {l.label}
+                    {active ? <span aria-hidden>—</span> : null}
+                  </Link>
+                </li>
               )
             })}
-          </div>
-        </div>
-      ) : null}
+          </ul>
+        </nav>
+      </div>
     </header>
   )
 }

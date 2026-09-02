@@ -1,99 +1,124 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Section } from "@/components/section"
+import { ArrowLink, PageHeader, SectionHeading, Shell } from "@/components/section"
+import { ToolkitGrid } from "@/components/toolkit"
+import { Reveal } from "@/components/reveal"
 import { siteData } from "@/lib/site"
 
-export const dynamic = "error" // keeps everything static-export friendly
+export const metadata = {
+  title: "About",
+  description: siteData.aboutme,
+}
+
+export const dynamic = "error"
 
 export default function AboutPage() {
   return (
-    <div>
-      <section className="py-12">
-        <div className="grid items-start gap-8 md:grid-cols-[0.9fr_1.3fr]">
-          <div className="relative overflow-hidden rounded-[2rem] border border-zinc-200/70 bg-white/60 p-6 shadow-sm backdrop-blur dark:border-zinc-800/70 dark:bg-zinc-950/40">
-            <div className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full bg-violet-500/15 blur-3xl" />
+    <Shell>
+      {/* leave this commented line as-is here: */}
+      {/* <PageHeader title="About" eyebrow="Who I am" meta="Mauritius → United Kingdom" /> */}
+      <PageHeader title="About" eyebrow="Who I am" />
+
+      <section className="mt-12 grid gap-10 lg:grid-cols-[1fr_0.55fr] lg:gap-14">
+        <div className="order-2 lg:order-1">
+          <div className="space-y-5">
+            <p className="t-prose text-lg text-ink">{siteData.aboutme}</p>
+            <p className="t-prose">
+              I studied Applied Computing at the University of Mauritius,
+              finishing with First Class Honours, then moved to London for an MSc
+              in Artificial Intelligence at Queen Mary University of London on a
+              Google DeepMind Scholarship — specialising in vision and robotics,
+              and graduating with Distinction.
+            </p>
+            <p className="t-prose">
+              Before that I wrote automation tests for a payroll system at
+              Dayforce and built CMS-driven sites at Proximity BBDO. Somewhere in
+              between, a deep transfer learning model for identifying fruit flies
+              became a paper at ICONAT 2022 and a mobile app that farmers could
+              actually hold.
+            </p>
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Link
+              href="/experience"
+              className="t-meta inline-flex items-center gap-2 border border-ink bg-ink px-5 py-3.5 text-paper transition-opacity hover:opacity-90"
+            >
+              Experience →
+            </Link>
+            <Link
+              href="/work"
+              className="t-meta inline-flex items-center gap-2 border border-rule-strong px-5 py-3.5 text-ink transition-colors hover:border-signal-bright hover:text-signal"
+            >
+              Work →
+            </Link>
+          </div>
+        </div>
+
+        <figure className="frame order-1 mx-auto w-full max-w-[300px] p-2 lg:order-2 lg:mx-0 lg:max-w-none">
+          <div className="relative aspect-[4/5] w-full overflow-hidden bg-sunk">
             <Image
               src={siteData.branding.profile}
-              alt={`${siteData.name} profile photo`}
-              width={420}
-              height={540}
-              className="h-auto w-full rounded-[1.5rem] object-cover"
+              alt={`${siteData.name}, portrait`}
+              fill
+              sizes="(max-width: 1024px) 300px, 340px"
+              priority
+              className="object-cover"
             />
-            <div className="mt-5">
-              <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{siteData.name}</p>
-              <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Data Engineering · AI · Computer Vision</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Link
-                  href="/projects"
-                  className="rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-500 to-sky-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-95"
-                >
-                  Projects
-                </Link>
-                <Link
-                  href="/contact"
-                  className="rounded-2xl border border-zinc-200/70 bg-white/70 px-4 py-2 text-sm font-semibold text-zinc-900 shadow-sm backdrop-blur transition hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:text-zinc-50 dark:hover:bg-zinc-950"
-                >
-                  Contact
-                </Link>
-              </div>
-            </div>
           </div>
-
-          <div>
-            <Section title="About" eyebrow="Bio" className="py-0">
-              <div className="prose prose-zinc max-w-none dark:prose-invert">
-                <p>{siteData.tagline}</p>
-                <p>
-                  {siteData.aboutme}
-                </p>
-              </div>
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                <Link
-                  href="/skills"
-                  className="group rounded-3xl border border-zinc-200/70 bg-white/60 p-6 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:hover:bg-zinc-950"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-500">Stack</p>
-                  <p className="mt-3 text-lg font-semibold">Skills & tools</p>
-                  <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300">Overview of my day-to-day toolkit.</p>
-                  <p className="mt-4 text-sm font-semibold text-violet-700 group-hover:underline group-hover:underline-offset-4 dark:text-violet-300">View →</p>
-                </Link>
-
-                <Link
-                  href="/experience"
-                  className="group rounded-3xl border border-zinc-200/70 bg-white/60 p-6 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:bg-white dark:border-zinc-800/70 dark:bg-zinc-950/40 dark:hover:bg-zinc-950"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-500">Highlights</p>
-                  <p className="mt-3 text-lg font-semibold">Experience</p>
-                  <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300">Work history, awards and publications.</p>
-                  <p className="mt-4 text-sm font-semibold text-violet-700 group-hover:underline group-hover:underline-offset-4 dark:text-violet-300">Explore →</p>
-                </Link>
-              </div>
-            </Section>
-          </div>
-        </div>
+          <figcaption className="flex items-baseline justify-between gap-3 px-1 pb-1 pt-2.5">
+            <span className="t-meta text-ink" translate="no">
+              {siteData.name}
+            </span>
+            <span className="t-meta">AI/Data Eng.</span>
+          </figcaption>
+        </figure>
       </section>
 
-      <Section title="Education" eyebrow="Timeline">
-        <div className="space-y-4">
+      <section className="mt-20">
+        <SectionHeading title="Education" meta={`${siteData.education.length} entries`} />
+        <ol className="mt-8 space-y-4">
           {siteData.education.map((e) => (
-            <div
-              key={`${e.date}-${e.title}`}
-              className="rounded-3xl p-6 border border-zinc-200 bg-white shadow-sm ring-1 ring-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-950/40 dark:ring-white/10"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h3 className="text-lg font-semibold">{e.title}</h3>
-                <span className="text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-500">{e.date}</span>
-              </div>
-              <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-zinc-700 dark:text-zinc-300">
-                {e.details.map((d) => (
-                  <li key={d}>{d}</li>
-                ))}
-              </ul>
-            </div>
+            <li key={`${e.date}-${e.title}`}>
+              <Reveal>
+                <article className="frame frame-hover grid gap-4 p-6 sm:grid-cols-[7rem_1fr] sm:gap-8 sm:p-8">
+                  <p className="t-meta sm:pt-1">{e.date}</p>
+                  <div>
+                    <h3 className="text-lg font-semibold leading-snug tracking-tight">
+                      {e.title}
+                    </h3>
+                    <ul className="mt-3 space-y-2">
+                      {e.details.map((d) => (
+                        <li
+                          key={d}
+                          className="relative pl-5 text-sm leading-relaxed text-muted before:absolute before:left-0 before:top-[0.6em] before:h-1 before:w-1 before:bg-signal-bright"
+                        >
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              </Reveal>
+            </li>
           ))}
+        </ol>
+      </section>
+
+      <section className="mt-20">
+        <SectionHeading
+          title="Toolkit"
+          meta={`${siteData.skills.length} tools`}
+          action={
+            <Link href="/skills">
+              <ArrowLink>Full list</ArrowLink>
+            </Link>
+          }
+        />
+        <div className="mt-8">
+          <ToolkitGrid />
         </div>
-      </Section>
-    </div>
+      </section>
+    </Shell>
   )
 }
