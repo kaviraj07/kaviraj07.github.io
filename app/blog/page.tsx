@@ -1,6 +1,13 @@
 import Link from "next/link"
-import { Section } from "@/components/section"
+import { PageHeader, Shell } from "@/components/section"
+import { Reveal } from "@/components/reveal"
 import { getAllPostMeta } from "@/lib/posts"
+
+export const metadata = {
+  title: "Writing",
+  description:
+    "Notes on data engineering, computer vision and machine learning by Kaviraj Gosaye.",
+}
 
 export const dynamic = "error"
 
@@ -8,51 +15,64 @@ export default function BlogIndexPage() {
   const posts = getAllPostMeta()
 
   return (
-    <div>
-      <Section title="Blog" eyebrow="Writing">
-        <div className="mt-6 space-y-3">
+    <Shell>
+      <PageHeader
+        title="Writing"
+        eyebrow="Notes"
+        meta={posts.length ? `${posts.length} post${posts.length === 1 ? "" : "s"}` : undefined}
+        lede="Working notes on data engineering, computer vision and the gap between a model that scores well and one that ships."
+      />
+
+      {posts.length ? (
+        <ol className="mt-10 border-t border-rule">
           {posts.map((p) => (
-            <Link
-              key={p.slug}
-              href={`/blog/${p.slug}/`}
-              className="block rounded-3xl border border-zinc-200 bg-white shadow-sm ring-1 ring-zinc-900/5
-transition hover:-translate-y-0.5 hover:shadow-md
-dark:border-zinc-800 dark:bg-zinc-950/40 dark:ring-white/10 p-6"
-            >
-
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <h3 className="text-lg font-semibold">{p.meta.title}</h3>
-                  {p.meta.description ? (
-                    <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300">{p.meta.description}</p>
-                  ) : null}
-                  {p.meta.tags?.length ? (
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {p.meta.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full border border-zinc-200 bg-white/70 px-3 py-1 text-xs text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950/50 dark:text-zinc-200"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-500">
-                  {p.meta.date}
-                </p>
-              </div>
-            </Link>
+            <li key={p.slug} className="border-b border-rule">
+              <Reveal>
+                <Link
+                  href={`/blog/${p.slug}/`}
+                  className="group grid gap-3 py-7 transition-colors sm:grid-cols-[8rem_1fr] sm:gap-8"
+                >
+                  <p className="t-meta sm:pt-1.5">{p.meta.date}</p>
+                  <div>
+                    <h2 className="text-lg font-semibold tracking-tight transition-colors group-hover:text-signal">
+                      {p.meta.title}
+                    </h2>
+                    {p.meta.description ? (
+                      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+                        {p.meta.description}
+                      </p>
+                    ) : null}
+                    {p.meta.tags?.length ? (
+                      <ul className="mt-3 flex flex-wrap gap-2">
+                        {p.meta.tags.map((t) => (
+                          <li key={t} className="t-meta border border-rule px-2 py-1">
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
+                </Link>
+              </Reveal>
+            </li>
           ))}
-
-          {!posts.length ? (
-            <div className="rounded-3xl border border-dashed border-zinc-300 p-6 text-sm text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
-              No posts yet. Coming soon!
-            </div>
-          ) : null}
+        </ol>
+      ) : (
+        <div className="mt-10 border border-dashed border-rule-strong p-8">
+          <p className="t-meta text-signal">Empty for now</p>
+          <p className="t-prose mt-3 max-w-lg">
+            No posts yet. The first ones will cover pipeline design and what
+            actually broke in my computer-vision projects. In the meantime, the
+            work speaks for itself.
+          </p>
+          <Link
+            href="/work"
+            className="t-meta mt-6 inline-flex items-center gap-2 border border-rule-strong px-5 py-3.5 text-ink transition-colors hover:border-signal-bright hover:text-signal"
+          >
+            See the work →
+          </Link>
         </div>
-      </Section>
-    </div>
+      )}
+    </Shell>
   )
 }

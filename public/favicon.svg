@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kaviraj Gosaye">
+  <rect width="64" height="64" fill="#0a0f0e"/>
+  <!-- The site's annotation brackets, in the Okabe-Ito bluish-green. -->
+  <path d="M5 19V5h14" fill="none" stroke="#009e73" stroke-width="4.5"/>
+  <path d="M59 45v14H45" fill="none" stroke="#009e73" stroke-width="4.5"/>
+  <text x="32" y="42.5" text-anchor="middle"
+        font-family="Archivo, Helvetica, Arial, sans-serif"
+        font-size="30" font-weight="700" letter-spacing="-1.5" fill="#e7eeea">KG</text>
+</svg>

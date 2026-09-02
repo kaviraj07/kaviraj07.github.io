@@ -1,25 +1,22 @@
-import { Section } from "@/components/section"
-import { MediaCard } from "@/components/media-card"
-import { siteData } from "@/lib/site"
+import { WorkPage } from "@/components/work-page"
+import { projects } from "@/lib/work"
+
+export const metadata = {
+  title: "Projects",
+  description:
+    "Computer vision, robotics and machine learning projects by Kaviraj Gosaye.",
+}
 
 export const dynamic = "error"
 
 export default function ProjectsPage() {
   return (
-    <div>
-      <Section title="Projects" eyebrow="Selected work">
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {siteData.projects.map((p) => (
-            <MediaCard
-              key={p.title}
-              title={p.title}
-              description={p.description}
-              image={p.image}
-              links={p.links}
-            />
-          ))}
-        </div>
-      </Section>
-    </div>
+    <WorkPage
+      title="Projects"
+      eyebrow="Selected builds"
+      lede="Deep learning, classical computer vision, search and robotics — each one built end to end rather than left in a notebook."
+      items={projects}
+      active="/projects"
+    />
   )
 }

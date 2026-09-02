@@ -1,25 +1,22 @@
-import { Section } from "@/components/section"
-import { MediaCard } from "@/components/media-card"
-import { siteData } from "@/lib/site"
+import { WorkPage } from "@/components/work-page"
+import { competitions } from "@/lib/work"
+
+export const metadata = {
+  title: "Competitions",
+  description:
+    "Hackathons and university competitions entered and won by Kaviraj Gosaye.",
+}
 
 export const dynamic = "error"
 
 export default function CompetitionsPage() {
   return (
-    <div>
-      <Section title="Competitions" eyebrow="Wins & participation">
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {siteData.competitions.map((c) => (
-            <MediaCard
-              key={c.title}
-              title={c.title}
-              description={c.description}
-              image={c.image}
-              links={c.links}
-            />
-          ))}
-        </div>
-      </Section>
-    </div>
+    <WorkPage
+      title="Competitions"
+      eyebrow="Hackathons"
+      lede="Short-format builds under a clock — 24 hours to a working website, 48 to a pitched product, three days to something that had to survive a demo."
+      items={competitions}
+      active="/competitions"
+    />
   )
 }

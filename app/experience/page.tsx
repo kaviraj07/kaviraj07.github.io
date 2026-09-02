@@ -1,88 +1,109 @@
-import Link from "next/link"
-import { Section } from "@/components/section"
+import { ArrowUpRight } from "lucide-react"
+import { PageHeader, SectionHeading, Shell } from "@/components/section"
+import { AwardPanel } from "@/components/award-panel"
+import { Reveal } from "@/components/reveal"
 import { siteData } from "@/lib/site"
+
+export const metadata = {
+  title: "Experience",
+  description:
+    "Work history, awards and published research — Kaviraj Gosaye, data engineer and MSc AI graduate.",
+}
 
 export const dynamic = "error"
 
 export default function ExperiencePage() {
   return (
-    <div>
-      <Section title="Experience" eyebrow="Work">
+    <Shell>
+      <PageHeader
+        title="Experience"
+        eyebrow="Work, awards, research"
+        meta={`${siteData.work.length} roles · ${siteData.publications.length} paper`}
+        lede="Software and data roles in Mauritius, a scholarship that moved the work to the UK, and one paper that put a deep-learning model into the hands of farmers."
+      />
 
-        <div className="space-y-4 mt-8">
+      {/* Roles are a chronology, so the date carries the structure. */}
+      <section className="mt-16">
+        <SectionHeading title="Roles" />
+        <ol className="mt-8 space-y-4">
           {siteData.work.map((w) => (
-            <div
-              key={`${w.company}-${w.role}`}
-              className="rounded-3xl p-6 border border-zinc-200 bg-white shadow-sm ring-1 ring-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-950/40 dark:ring-white/10"
-            >
-              <div className="flex flex-wrap items-start justify-between gap-2">
-                <div>
-                  <h3 className="text-lg font-semibold">{w.role}</h3>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{w.company}</p>
-                </div>
-                <span className="text-xs font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-500">{w.date}</span>
-              </div>
-              <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-zinc-700 dark:text-zinc-300">
-                {w.bullets.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ul>
-            </div>
+            <li key={`${w.company}-${w.role}`}>
+              <Reveal>
+                <article className="frame frame-hover grid gap-4 p-6 sm:grid-cols-[10rem_1fr] sm:gap-8 sm:p-8">
+                  <p className="t-meta sm:pt-1">{w.date}</p>
+                  <div>
+                    <h3 className="text-lg font-semibold tracking-tight">{w.role}</h3>
+                    <p className="mt-1 text-sm text-muted">{w.company}</p>
+                    <ul className="mt-4 space-y-2">
+                      {w.bullets.map((b) => (
+                        <li
+                          key={b}
+                          className="relative pl-5 text-sm leading-relaxed text-muted before:absolute before:left-0 before:top-[0.6em] before:h-1 before:w-1 before:bg-signal-bright"
+                        >
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              </Reveal>
+            </li>
           ))}
-        </div>
-      </Section>
+        </ol>
+      </section>
 
-      <Section title="Awards" eyebrow="Highlights">
-        <div className="space-y-4">
+      <section className="mt-20">
+        <SectionHeading title="Awards" />
+        <div className="mt-8 space-y-4">
           {siteData.awards.map((a) => (
-            <div
-              key={a.title}
-              className="rounded-3xl p-6 border border-zinc-200 bg-white shadow-sm ring-1 ring-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-950/40 dark:ring-white/10"
-            >
-              <h3 className="text-lg font-semibold">{a.title}</h3>
-
-              <div className="mt-3 space-y-3 text-sm text-zinc-700 dark:text-zinc-300">
-                {a.body.map((d) => (
-                  <p key={d}>{d}</p>
-                ))}
-              </div>
-            </div>
+            <Reveal key={a.title}>
+              <AwardPanel
+                title={a.title}
+                body={a.body[0]}
+                quote={a.body[1]?.replace(/^"|"$/g, "")}
+              />
+            </Reveal>
           ))}
         </div>
-      </Section>
+      </section>
 
-      <Section title="Publications" eyebrow="Research">
-        <div className="space-y-4">
+      <section className="mt-20">
+        <SectionHeading title="Publications" />
+        <div className="mt-8 space-y-4">
           {siteData.publications.map((p) => (
-            <div
-              key={p.venue}
-              className="rounded-3xl p-6 border border-zinc-200 bg-white shadow-sm ring-1 ring-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-950/40 dark:ring-white/10"
-            >
-              <h3 className="text-lg font-semibold">{p.venue}</h3>
-              <div className="mt-3 space-y-3 text-sm text-zinc-700 dark:text-zinc-300">
-                {p.details.map((d) => (
-                  <p key={d}>{d}</p>
+            <Reveal key={p.venue}>
+              <article className="frame frame-hover p-6 sm:p-8">
+                <p className="t-meta text-signal">{p.venue}</p>
+                <h3 className="mt-3 text-lg font-semibold leading-snug tracking-tight">
+                  {p.details[0]?.replace(/^Title:\s*/, "")}
+                </h3>
+                {p.details.slice(1).map((d) => (
+                  <p key={d} className="t-prose mt-4 max-w-2xl">
+                    {d}
+                  </p>
                 ))}
-              </div>
-              {p.links.length ? (
-                <div className="mt-4 flex flex-wrap gap-3">
-                  {p.links.map((l) => (
-                    <Link
-                      key={l.href}
-                      href={l.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-500 to-sky-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-95"
-                    >
-                      {l.label}
-                    </Link>
-                  ))}
-                </div>
-              ) : null}
-            </div>
+
+                {p.links.length ? (
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    {p.links.map((l) => (
+                      <a
+                        key={l.href}
+                        href={l.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="t-meta inline-flex items-center gap-2 border border-signal-bright bg-signal-bright/10 px-4 py-2.5 text-signal transition-colors hover:bg-signal-bright/20"
+                      >
+                        {l.label}
+                        <ArrowUpRight size={13} aria-hidden />
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+              </article>
+            </Reveal>
           ))}
         </div>
-      </Section>
-    </div>
+      </section>
+    </Shell>
   )
 }

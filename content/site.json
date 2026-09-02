@@ -1,15 +1,10 @@
 {
   "name": "Kaviraj Gosaye",
-  "tagline": "Data Engineer • MSc AI • Google DeepMind Scholar",
-  "aboutme": "I’m a Graduate Data Engineer with an AI background, focused on building scalable data workflows and end-to-end solutions. I enjoy working across data, software and ML, especially where clean engineering unlocks real-world impact.",
+  "tagline": "Data engineer working across AI and software. MSc Artificial Intelligence, Google DeepMind Scholar. Computer vision, retrieval systems and data engineering.",
+  "aboutme": "I’m a data engineer working across AI and software. My background is in deep learning and computer vision: convolutional architectures, transfer learning and the classical image processing beneath them. That work has since evolved toward AI agents and workflows, shifting my domain from pixels to agentic systems.",
   "branding": {
     "monogram": "KG",
-    "logo": "/Assets/logo.PNG",
     "profile": "/Assets/profile.png"
-  },
-  "themeIcons": {
-    "sun": "/Assets/sun.png",
-    "moon": "/Assets/moon.png"
   },
   "socials": [
     {
@@ -33,7 +28,7 @@
       "icon": "/Assets/instagram.svg"
     },
     {
-      "label": "Linkedin",
+      "label": "LinkedIn",
       "href": "https://www.linkedin.com/in/kavirajgosaye/",
       "icon": "/Assets/linkedin.svg"
     },
@@ -94,6 +89,16 @@
     }
   ],
   "work": [
+    {
+      "role": "Data Engineer - AI & software engineering",
+      "company": "Neptune North",
+      "date": "SEPT 2025 - CURRENT",
+      "bullets": [
+        "Design and develop AI-powered solutions to support complex business and technology workflows.",
+        "Build robust approaches for evaluating the quality, reliability, and traceability of AI-generated outputs.",
+        "Develop supporting data and technology capabilities while advising on where AI can deliver meaningful business value."
+      ]
+    },
     {
       "role": "Associate Software Developer",
       "company": "Dayforce (formerly Ceridian Mauritius)",
@@ -191,7 +196,7 @@
       "date": "DEC 2014",
       "details": [
         "O-Levels at Mahatma Gandhi Institute (MGI) Moka",
-        "Subjects: English, Maths, Add Maths, French, Hindi, Computer Studies, Chemistry"
+        "Subjects: English, Maths, Additional Maths, Physics, Chemistry, Computer Studies, French, Hindi"
       ]
     }
   ],

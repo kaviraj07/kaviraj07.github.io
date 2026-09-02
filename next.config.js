@@ -19,6 +19,10 @@ const nextConfig = {
 
   // GitHub Pages doesn't support Next's default image optimizer (it needs a server).
   images: { unoptimized: true },
+
+  // Exposed so asset URLs built inside CSS values (mask-image) can be prefixed
+  // the way next/image and next/link already are.
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
 }
 
 module.exports = nextConfig

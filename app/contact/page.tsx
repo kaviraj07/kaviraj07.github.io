@@ -1,56 +1,100 @@
-import Image from "next/image"
-import { Section } from "@/components/section"
+import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
+import { PageHeader, Shell } from "@/components/section"
+import { SocialIcon } from "@/components/social-icon"
+import { Reveal } from "@/components/reveal"
 import { siteData } from "@/lib/site"
+
+export const metadata = {
+  title: "Contact",
+  description: "Get in touch with Kaviraj Gosaye — email, LinkedIn and social links.",
+}
 
 export const dynamic = "error"
 
+/** The two routes that actually get read; everything else is "Elsewhere". */
+const PRIMARY = ["email", "linkedin"]
+
+function displayHref(href: string) {
+  return href.startsWith("mailto:")
+    ? href.slice("mailto:".length)
+    : href.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")
+}
+
 export default function ContactPage() {
+  const primary = PRIMARY.map((key) =>
+    siteData.socials.find((s) => s.label.toLowerCase() === key)
+  ).filter((s): s is (typeof siteData.socials)[number] => Boolean(s))
+
+  const rest = siteData.socials.filter(
+    (s) => !PRIMARY.includes(s.label.toLowerCase())
+  )
+
   return (
-    <div>
-      <Section title="Contact" eyebrow="Get in touch">
-        <div className="grid gap-4 md:grid-cols-2">
-          {siteData.socials.map((s) => {
-            const display = s.href.startsWith("mailto:")
-              ? s.href.replace(/^mailto:/, "")
-              : s.href
+    <Shell>
+      <PageHeader
+        title="Contact"
+        eyebrow="Get in touch"
+        lede="Email and LinkedIn are the surest ways to reach me — I read everything and reply to anything that isn’t a template."
+      />
 
-            const isExternal = s.href.startsWith("http")
-
-            return (
-              <a
-                key={s.href}
+      <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+        {primary.map((s) => {
+          const external = s.href.startsWith("http")
+          return (
+            <li key={s.href}>
+              <Link
                 href={s.href}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noreferrer" : undefined}
-                className="group rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm ring-1 ring-zinc-900/5 transition hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950/40 dark:ring-white/10"
+                target={external ? "_blank" : undefined}
+                rel={external ? "noreferrer" : undefined}
+                className="frame frame-hover flex h-full items-center justify-between gap-4 p-6 transition-colors hover:bg-sunk/50 sm:p-7"
               >
-                <div className="flex items-center gap-3">
-                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white shadow-sm ring-1 ring-zinc-900/5 dark:bg-zinc-950 dark:ring-white/10">
-                    {s.icon ? (
-                      <Image
-                        src={s.icon}
-                        alt=""
-                        width={22}
-                        height={22}
-                        className="h-5 w-5 opacity-90"
-                      />
-                    ) : null}
-                  </div>
+                <span className="min-w-0">
+                  <span className="t-meta flex items-center gap-2 text-signal">
+                    <SocialIcon src={s.icon} size={14} />
+                    {s.label}
+                  </span>
+                  <span className="mt-2 block truncate text-base font-semibold tracking-tight sm:text-lg">
+                    {displayHref(s.href)}
+                  </span>
+                </span>
+                <ArrowUpRight size={18} aria-hidden className="shrink-0 text-faint" />
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
 
-                  <div>
-                    <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+      <section className="mt-12">
+        <p className="t-meta">Elsewhere</p>
+        <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {rest.map((s) => (
+            <li key={s.href}>
+              <Reveal>
+                <Link
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="frame frame-hover flex items-center gap-4 p-5 transition-colors hover:bg-sunk/50"
+                >
+                  <span className="shrink-0 text-signal">
+                    <SocialIcon src={s.icon} size={20} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-sm font-semibold tracking-tight">
                       {s.label}
-                    </p>
-                    <p className="mt-1 break-all text-sm text-zinc-600 dark:text-zinc-400">
-                      {display}
-                    </p>
-                  </div>
-                </div>
-              </a>
-            )
-          })}
-        </div>
-      </Section>
-    </div>
+                    </span>
+                    <span className="block truncate text-xs text-faint">
+                      {displayHref(s.href)}
+                    </span>
+                  </span>
+                  <ArrowUpRight size={15} aria-hidden className="shrink-0 text-faint" />
+                </Link>
+              </Reveal>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </Shell>
   )
 }
