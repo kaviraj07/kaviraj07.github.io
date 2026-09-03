@@ -20,7 +20,7 @@ export default function BlogIndexPage() {
         title="Writing"
         eyebrow="Notes"
         meta={posts.length ? `${posts.length} post${posts.length === 1 ? "" : "s"}` : undefined}
-        lede="Working notes on data engineering, computer vision and the gap between a model that scores well and one that ships."
+        lede="Thoughts, experiments and insights on modern technology."
       />
 
       {posts.length ? (
@@ -61,9 +61,7 @@ export default function BlogIndexPage() {
         <div className="mt-10 border border-dashed border-rule-strong p-8">
           <p className="t-meta text-signal">Empty for now</p>
           <p className="t-prose mt-3 max-w-lg">
-            No posts yet. The first ones will cover pipeline design and what
-            actually broke in my computer-vision projects. In the meantime, the
-            work speaks for itself.
+            No posts yet. Stay tuned - New content coming soon.
           </p>
           <Link
             href="/work"
