@@ -30,11 +30,12 @@ my experience and education, and a place for writing.
   position, project rows that open in place, and a header that hides while
   reading and returns on scroll up.
 
-- **Lighthouse (mobile, live site):**
+- **Lighthouse (live site, median of runs):**
 
-  | Performance | Accessibility | Best Practices | SEO |
-  | :---: | :---: | :---: | :---: |
-  | 100 | 100 | 100 | 100 |
+  | | Performance | Accessibility | Best Practices | SEO |
+  | --- | :---: | :---: | :---: | :---: |
+  | Desktop | 100 | 100 | 100 | 100 |
+  | Mobile | 99 | 100 | 100 | 100 |
 
 ## CI/CD
 
