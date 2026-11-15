@@ -1,33 +1,44 @@
 import Link from "next/link"
+import { Row, Shell } from "@/components/section"
 import { siteData } from "@/lib/site"
 import { SocialIcon } from "@/components/social-icon"
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-rule">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-        <p className="t-meta text-ink">
-          © {new Date().getFullYear()} {siteData.name}
-        </p>
-
-        <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
-          {siteData.socials.map((s) => (
-            <li key={s.href}>
-              <Link
-                href={s.href}
-                target={s.href.startsWith("http") ? "_blank" : undefined}
-                rel={s.href.startsWith("http") ? "noreferrer" : undefined}
-                className="group inline-flex items-center gap-2 py-2 text-sm text-muted transition-colors hover:text-ink"
-              >
-                <span className="text-faint transition-colors group-hover:text-signal-bright">
+    <Shell className="mt-28 sm:mt-36">
+      <Row
+        as="footer"
+        className="border-t border-rule py-8"
+        margin={
+          <p className="t-small">
+            © {new Date().getFullYear()} {siteData.name}
+          </p>
+        }
+      >
+        {/* Icons only: six well-known services read at a glance. Each keeps
+            its name for screen readers and as a hover tooltip, and a padded
+            hit area that is larger than the mark itself. Right-aligned from
+            md up, mirroring the header: name left, links right. */}
+        <ul className="-m-2 flex flex-wrap items-center gap-x-2 md:justify-end">
+          {siteData.socials.map((s) => {
+            const external = s.href.startsWith("http")
+            return (
+              <li key={s.href}>
+                <Link
+                  href={s.href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noreferrer" : undefined}
+                  aria-label={s.label}
+                  title={s.label}
+                  className="inline-flex p-2 text-faint transition-colors hover:text-accent"
+                >
                   <SocialIcon src={s.icon} />
-                </span>
-                {s.label}
-              </Link>
-            </li>
-          ))}
+                </Link>
+              </li>
+            )
+          })}
         </ul>
-      </div>
-    </footer>
+      </Row>
+    </Shell>
   )
 }

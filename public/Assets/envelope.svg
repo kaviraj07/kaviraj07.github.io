@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="#000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+  <!-- Plain outline envelope, drawn to match the line weight of the other social marks. -->
+  <rect x="9" y="15" width="46" height="34" rx="4"/>
+  <path d="M11 18l21 16 21-16"/>
+</svg>

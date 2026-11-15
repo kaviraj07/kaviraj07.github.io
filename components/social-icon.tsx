@@ -1,20 +1,15 @@
-import { withBasePath } from "@/lib/base-path"
-
 /**
  * The icons in /public/Assets are full-colour gradient marks, which fight the
- * rest of the page and don't adapt to the theme. Painting them as a mask keeps
- * the silhouette and takes the colour from `currentColor` instead.
+ * page and don't adapt to the theme. Painting them as a mask keeps the
+ * silhouette and takes the colour from `currentColor` instead.
+ *
+ * The site deploys as a user page at the domain root, so asset URLs need no
+ * base-path prefix here.
  */
-export function SocialIcon({
-  src,
-  size = 16,
-}: {
-  src: string | null
-  size?: number
-}) {
+export function SocialIcon({ src, size = 18 }: { src: string | null; size?: number }) {
   if (!src) return null
 
-  const url = `url(${withBasePath(src)})`
+  const url = `url(${src})`
 
   return (
     <span

@@ -27,7 +27,7 @@ export function ThemeToggle() {
             : "Switch to dark theme"
           : "Toggle theme"
       }
-      className="frame frame-hover inline-flex h-9 w-9 items-center justify-center text-ink transition-colors hover:text-signal disabled:opacity-60"
+      className="inline-flex h-9 w-9 items-center justify-center text-muted transition-colors hover:text-ink disabled:opacity-60"
       style={{ touchAction: "manipulation" }}
     >
       {mounted ? (

@@ -1,30 +1,17 @@
 import type { Metadata } from "next"
-import { Archivo, Newsreader, JetBrains_Mono } from "next/font/google"
+import { Instrument_Sans } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { siteData } from "@/lib/site"
 
-// Display + UI. The width axis is what gives headlines their signage feel.
-const archivo = Archivo({
+// The only typeface. Its width axis gives annotation labels a condensed
+// voice of their own, so they never need a monospace or capitals.
+const instrument = Instrument_Sans({
   subsets: ["latin"],
   axes: ["wdth"],
-  variable: "--font-archivo",
-  display: "swap",
-})
-
-// Prose only.
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  variable: "--font-newsreader",
-  display: "swap",
-})
-
-// Metadata: dates, venues, counts.
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains",
+  variable: "--font-instrument",
   display: "swap",
 })
 
@@ -60,10 +47,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#eff1ec" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0f0e" },
-  ],
+  // Matches the default (dark) theme, whatever the visitor's system uses.
+  themeColor: "#111215",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -73,13 +58,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${archivo.variable} ${newsreader.variable} ${jetbrains.variable}`}
+      className={instrument.variable}
     >
       <body className="flex min-h-screen flex-col antialiased">
         <ThemeProvider>
           <a
             href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border focus:border-signal-bright focus:bg-raised focus:px-4 focus:py-2 focus:text-sm focus:font-semibold"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-bg"
           >
             Skip to content
           </a>

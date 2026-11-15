@@ -16,7 +16,7 @@ export default function CompetitionsPage() {
       eyebrow="Hackathons"
       lede="Short-format builds under a clock — 24 hours to a working website, 48 to a pitched product, three days to something that had to survive a demo."
       items={competitions}
-      active="/competitions"
+      active="/projects/competitions"
     />
   )
 }

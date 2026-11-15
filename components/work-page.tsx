@@ -1,5 +1,6 @@
-import { PageHeader, Shell } from "@/components/section"
-import { WorkFilters, WorkGrid } from "@/components/work-grid"
+import { PageHeader, Row, Shell } from "@/components/section"
+import { WorkEntries, WorkFilters } from "@/components/work-entries"
+import { WorkContents } from "@/components/work-contents"
 import type { WorkItem } from "@/lib/work"
 
 /** Shared body for /work, /projects and /competitions. */
@@ -17,21 +18,23 @@ export function WorkPage({
   active: string
 }) {
   return (
-    <Shell className="pb-4">
-      <PageHeader
-        title={title}
-        eyebrow={eyebrow}
-        meta={`${items.length} ${items.length === 1 ? "entry" : "entries"}`}
-        lede={lede}
-      />
+    <Shell>
+      <PageHeader title={title} eyebrow={eyebrow} lede={lede} />
 
-      <div className="mt-8">
-        <WorkFilters active={active} />
-      </div>
-
-      <div className="mt-6">
-        <WorkGrid items={items} />
-      </div>
+      {/* The margin holds the filters and a contents list that tracks the
+          reader, kept in view while the entries scroll past. */}
+      <Row
+        className="mt-16"
+        sticky
+        margin={
+          <div className="space-y-10">
+            <WorkFilters active={active} />
+            <WorkContents items={items} />
+          </div>
+        }
+      >
+        <WorkEntries items={items} />
+      </Row>
     </Shell>
   )
 }

@@ -1,10 +1,10 @@
 import { WorkPage } from "@/components/work-page"
-import { projects } from "@/lib/work"
+import { allWork } from "@/lib/work"
 
 export const metadata = {
   title: "Projects",
   description:
-    "Computer vision, robotics and machine learning projects by Kaviraj Gosaye.",
+    "Builds and competition entries in computer vision, robotics and applied machine learning.",
 }
 
 export const dynamic = "error"
@@ -13,9 +13,9 @@ export default function ProjectsPage() {
   return (
     <WorkPage
       title="Projects"
-      eyebrow="Selected builds"
-      lede="Deep learning, classical computer vision, search and robotics — each one built end to end rather than left in a notebook."
-      items={projects}
+      eyebrow="Builds & competitions"
+      lede="Coursework, research and weekend builds, plus the competitions that started most of it."
+      items={allWork}
       active="/projects"
     />
   )

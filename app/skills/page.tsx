@@ -1,7 +1,6 @@
 import Link from "next/link"
-import { PageHeader, Shell } from "@/components/section"
+import { PageHeader, Row, Shell } from "@/components/section"
 import { ToolkitGrid } from "@/components/toolkit"
-import { siteData } from "@/lib/site"
 
 export const metadata = {
   title: "Skills",
@@ -13,30 +12,24 @@ export const dynamic = "error"
 
 export default function SkillsPage() {
   return (
-    <>
-      <Shell>
-        <PageHeader
-          title="Toolkit"
-          eyebrow="Languages & tools"
-          meta={`${siteData.skills.length} tools`}
-          lede="What I reach for. Python and PyTorch do most of the work; the rest come from coursework, competitions and the two engineering roles that came before them."
-        />
-      </Shell>
+    <Shell>
+      <PageHeader
+        title="Toolkit"
+        eyebrow="Languages & tools"
+        lede="What I reach for. Python and PyTorch do most of the work; the rest come from coursework, competitions and the two engineering roles that came before them."
+      />
 
-      <Shell className="mt-12">
+      <Row className="mt-14">
         <ToolkitGrid />
 
-        <p className="mt-10 text-sm text-muted">
+        <p className="t-small mt-12">
           See where these actually get used in{" "}
-          <Link
-            href="/work"
-            className="text-signal underline decoration-1 underline-offset-4 hover:decoration-2"
-          >
-            the work
+          <Link href="/projects" className="link">
+            the projects
           </Link>
           .
         </p>
-      </Shell>
-    </>
+      </Row>
+    </Shell>
   )
 }

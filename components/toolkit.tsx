@@ -1,49 +1,52 @@
-import Image from "next/image"
-import { RosIcon } from "@/components/ros-icon"
-import { cn } from "@/lib/utils"
 import { siteData } from "@/lib/site"
 
-type Skill = (typeof siteData.skills)[number]
+/**
+ * What each tool is for. A flat list of twelve names says nothing; grouped,
+ * the same names describe a shape of work. Any skill added to site.json
+ * without a group here still shows, under "Also".
+ */
+const GROUPS: Array<{ name: string; tools: string[] }> = [
+  { name: "Languages", tools: ["Python", "Java", "C#"] },
+  {
+    name: "Machine learning",
+    tools: ["PyTorch", "TensorFlow", "Keras", "Scikit-Learn", "MLflow"],
+  },
+  { name: "Vision & robotics", tools: ["OpenCV", "ROS"] },
+  { name: "Data & tooling", tools: ["MySQL", "Git"] },
+]
 
-function Mark({ skill }: { skill: Skill }) {
-  if (!skill.icon) return <RosIcon className="h-5 w-5 text-ink" />
-  return (
-    <Image
-      src={skill.icon}
-      alt=""
-      width={24}
-      height={24}
-      className="h-5 w-5 object-contain"
-    />
-  )
+function grouped() {
+  const known = new Set(siteData.skills.map((s) => s.label))
+  const groups = GROUPS.map((g) => ({
+    name: g.name,
+    tools: g.tools.filter((t) => known.has(t)),
+  }))
+  const placed = new Set(groups.flatMap((g) => g.tools))
+  const rest = [...known].filter((t) => !placed.has(t))
+  if (rest.length) groups.push({ name: "Also", tools: rest })
+  return groups.filter((g) => g.tools.length)
 }
 
-/**
- * A plain hairline grid — no marquee. The tools are a reference list, not a
- * logo wall, so nothing here moves.
- */
-export function ToolkitGrid({ compact = false }: { compact?: boolean }) {
+export function ToolkitGrid() {
   return (
-    <ul
-      className={cn(
-        "grid grid-cols-2 gap-px border border-rule bg-rule",
-        compact ? "sm:grid-cols-4 lg:grid-cols-6" : "sm:grid-cols-3 lg:grid-cols-4"
-      )}
-    >
-      {siteData.skills.map((s) => (
-        <li
-          key={s.label}
-          className={cn(
-            "flex items-center gap-3 bg-raised transition-colors hover:bg-sunk",
-            compact ? "px-4 py-3.5" : "px-5 py-4"
-          )}
+    <dl className="divide-y divide-rule border-y border-rule">
+      {grouped().map((g) => (
+        <div
+          key={g.name}
+          className="grid gap-x-8 gap-y-3 py-5 sm:grid-cols-[10rem_minmax(0,1fr)] sm:items-baseline"
         >
-          <Mark skill={s} />
-          <span className="min-w-0 truncate text-sm font-medium" translate="no">
-            {s.label}
-          </span>
-        </li>
+          <dt className="t-small">{g.name}</dt>
+          <dd>
+            <ul className="flex flex-wrap gap-2">
+              {g.tools.map((t) => (
+                <li key={t} className="label" translate="no">
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </dd>
+        </div>
       ))}
-    </ul>
+    </dl>
   )
 }

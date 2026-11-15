@@ -40,10 +40,10 @@ function toItems(
 export const projects = toItems(siteData.projects, "project")
 export const competitions = toItems(siteData.competitions, "competition")
 
-/** Projects first, then competitions — the order the work page presents. */
+/** Builds first, then competitions — the order the projects page presents. */
 export const allWork: WorkItem[] = [...projects, ...competitions]
 
 export const kindLabel: Record<WorkKind, string> = {
-  project: "Project",
+  project: "Build",
   competition: "Competition",
 }

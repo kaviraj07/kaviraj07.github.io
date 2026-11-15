@@ -5,260 +5,427 @@
 /* ============================================================
    Tokens
 
-   The palette is taken from the Okabe–Ito series — the colour-blind-safe
-   set used for scientific figures. Bluish-green carries signal (links,
-   marks, rules); the yellow is a marker, used only as a solid block
-   behind ink, the way a labelled region is called out in an image.
+   Cool paper, neutral ink, one deep green. Green is the colour of
+   annotation: detection boxes, citations, links and focus. Anything in
+   it was either found or can be followed. Dark mode softens it to mint
+   rather than neon.
    ============================================================ */
 
 :root {
   color-scheme: light;
 
-  --paper: #eff1ec;
-  --paper-raised: #f8f9f5;
-  --paper-sunk: #e4e7e0;
+  /* Light: a soft grey with a faint green cast, so the paper belongs to
+     the accent rather than reading as stark, cold white. */
+  --bg: #f2f3ef;
+  --surface: #e5e8e1;
+  --ink: #151815;
+  --muted: #525a54;
+  --faint: #5f665f;
+  --rule: #d6dbd2;
+  --accent: #00705b;
+  --on-accent: #ffffff;
 
-  --ink: #0e1513;
-  --ink-muted: #414b46;
-  --ink-faint: #4f5c56;
-
-  --rule: #ccd3ca;
-  --rule-strong: #a9b3a8;
-
-  /* #009e73 dropped in luminance so body-size text clears 4.5:1 on paper */
-  --signal: #00685a;
-  --signal-bright: #009e73;
-  --signal-wash: rgb(0 158 115 / 0.09);
-
-  --marker: #f0e442;
-  --on-marker: #0e1513;
-
-  --shadow-ambient: 0 1px 2px rgb(14 21 19 / 0.04);
-  --shadow-lift: 0 1px 2px rgb(14 21 19 / 0.05), 0 12px 28px -12px rgb(14 21 19 / 0.16);
-
-  /* Font stacks live here rather than only in `@theme inline`, which inlines
-     its values into utilities and emits no variable to read back. */
-  --stack-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
-  --stack-body: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
-  --stack-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
-  --stack-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --stack-sans: var(--font-instrument), "Helvetica Neue", Arial, sans-serif;
 }
 
 .dark {
   color-scheme: dark;
 
-  --paper: #0a0f0e;
-  --paper-raised: #121917;
-  --paper-sunk: #060a09;
-
-  --ink: #e7eeea;
-  --ink-muted: #98a69f;
-  --ink-faint: #7c8a83;
-
-  --rule: #212b28;
-  --rule-strong: #35423d;
-
-  --signal: #35d9a8;
-  --signal-bright: #35d9a8;
-  --signal-wash: rgb(53 217 168 / 0.12);
-
-  --marker: #f0e442;
-  --on-marker: #0e1513;
-
-  --shadow-ambient: 0 1px 2px rgb(0 0 0 / 0.4);
-  --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.5), 0 12px 28px -12px rgb(0 0 0 / 0.8);
+  --bg: #111215;
+  --surface: #1b1d21;
+  --ink: #ecedef;
+  --muted: #9da3ac;
+  --faint: #878d97;
+  --rule: #2a2d33;
+  --accent: #4cc9a0;
+  --on-accent: #111215;
 }
 
-/* `inline` keeps the var reference in the utility itself, so the values
-   above still swap when `.dark` is toggled at runtime. */
+/* `inline` keeps the var reference in each utility, so the values above
+   still swap when `.dark` is toggled at runtime. */
 @theme inline {
-  --color-paper: var(--paper);
-  --color-raised: var(--paper-raised);
-  --color-sunk: var(--paper-sunk);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
   --color-ink: var(--ink);
-  --color-muted: var(--ink-muted);
-  --color-faint: var(--ink-faint);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
   --color-rule: var(--rule);
-  --color-rule-strong: var(--rule-strong);
-  --color-signal: var(--signal);
-  --color-signal-bright: var(--signal-bright);
-  --color-marker: var(--marker);
-  --color-on-marker: var(--on-marker);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
 
-  --font-display: var(--stack-display);
-  --font-sans: var(--stack-body);
-  --font-serif: var(--stack-serif);
-  --font-mono: var(--stack-mono);
+  --font-sans: var(--stack-sans);
 }
 
 /* ============================================================
-   Base and component roles
+   Base
 
-   Both are layered: unlayered CSS outranks every Tailwind utility, so
-   `text-signal` on a `.t-meta` element would silently lose.
+   Layered so Tailwind utilities can still override any of it.
    ============================================================ */
 
 @layer base {
-  html {
-    -webkit-tap-highlight-color: var(--signal-wash);
-  }
-
   body {
-    background-color: var(--paper);
+    background-color: var(--bg);
     color: var(--ink);
-    font-family: var(--stack-body);
+    font-family: var(--stack-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
     font-synthesis-weight: none;
-    text-rendering: optimizeLegibility;
-  }
-
-  /* Faint sensor grid, fading out as the page scrolls into content. */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      linear-gradient(to right, var(--rule) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
-    background-size: 84px 84px;
-    background-position: center -1px;
-    opacity: 0.55;
-    -webkit-mask-image: linear-gradient(to bottom, #000, transparent 62%);
-    mask-image: linear-gradient(to bottom, #000, transparent 62%);
   }
 
   ::selection {
-    background: var(--marker);
-    color: var(--on-marker);
+    background: var(--accent);
+    color: var(--bg);
   }
 
   :focus-visible {
-    outline: 2px solid var(--signal-bright);
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
     border-radius: 2px;
   }
 
   h1,
   h2,
-  h3,
-  h4 {
-    font-family: var(--stack-display);
-    font-variation-settings: "wdth" 112;
-    letter-spacing: -0.02em;
+  h3 {
     text-wrap: balance;
   }
 
-  /* Anchors sit clear of the sticky header when linked to directly. */
   :where(h1, h2, h3, [id]) {
-    scroll-margin-top: 6rem;
+    scroll-margin-top: 2rem;
   }
 }
 
 @layer components {
-  /* ============================================================
-     Type roles
-     ============================================================ */
-
-  /* Display: Archivo pushed wide, the way engineered signage is set. */
+  /* Display: the one large thing on a page. */
   .t-display {
-    font-family: var(--stack-display);
-    font-variation-settings: "wdth" 120;
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    line-height: 0.92;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.04;
     text-wrap: balance;
   }
 
-  /* Metadata: dates, counts, venues, coordinates. Anything the eye scans
-     rather than reads. */
-  .t-meta {
-    font-family: var(--stack-mono);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+  /* Small secondary text: dates, venues, kinds. Sentence case, never
+     tracked out — it reads as part of the copy, not as chrome. */
+  .t-small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted);
     font-variant-numeric: tabular-nums;
-    color: var(--ink-faint);
   }
 
-  /* Prose: the only place a serif appears. */
+  /* Running text, held to a readable measure. */
   .t-prose {
-    font-family: var(--stack-serif);
-    font-size: 1.0625rem;
-    line-height: 1.7;
-    color: var(--ink-muted);
+    max-width: 38rem;
+    color: var(--muted);
+    line-height: 1.65;
   }
 
-  .t-prose strong {
-    color: var(--ink);
-    font-weight: 600;
+  /* Inline text link: accent with a faint underline that firms up on hover. */
+  .link {
+    color: var(--accent);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
+    transition: text-decoration-color 150ms ease;
   }
 
-  /* ============================================================
-     Signature: annotation frames
+  .link:hover {
+    text-decoration-color: currentColor;
+  }
 
-     Two opposing corner brackets, not four — an asymmetric crop mark.
-     Applied to anything the page treats as a captured artifact.
-     ============================================================ */
+  /* The single filled button style. Used once per view at most. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    touch-action: manipulation;
+    transition: opacity 150ms ease;
+  }
 
-  .frame {
+  .btn:hover {
+    opacity: 0.85;
+  }
+
+  /* Bulleted detail lists (roles, education). */
+  .ticks {
+    display: grid;
+    gap: 0.375rem;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .ticks > li {
     position: relative;
-    border: 1px solid var(--rule);
-    background: var(--paper-raised);
+    padding-left: 1.125rem;
   }
 
-  .frame::before,
-  .frame::after {
+  .ticks > li::before {
     content: "";
     position: absolute;
-    width: 11px;
-    height: 11px;
-    border: 0 solid var(--signal-bright);
-    transition: width 220ms ease, height 220ms ease;
+    left: 0;
+    top: 0.8em;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--faint);
+  }
+}
+
+/* ============================================================
+   Detection boxes — the signature
+
+   An outline and a label tab, the way a vision model marks what it found.
+   Square-cornered on purpose: boxes are annotations laid over content,
+   so they never share the rounded shapes of buttons and photos.
+   ============================================================ */
+
+/* Layered, so utilities on a tag (the contact page Copy tab) can restyle it. */
+@layer components {
+  .detect {
+    position: absolute;
+    border: 1.5px solid var(--accent);
+    pointer-events: none;
   }
 
-  .frame::before {
-    top: -1px;
-    left: -1px;
-    border-top-width: 2px;
-    border-left-width: 2px;
+  .tag {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35em;
+    padding: 0.2em 0.45em 0.25em;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    font-stretch: 75%;
+    line-height: 1.1;
+    white-space: nowrap;
   }
 
-  .frame::after {
-    right: -1px;
-    bottom: -1px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
+  /* A tag sitting on the top edge of its box, flush with the outer left. */
+  .detect > .tag {
+    position: absolute;
+    bottom: 100%;
+    left: -1.5px;
   }
 
-  .frame-hover:hover::before,
-  .frame-hover:hover::after,
-  .frame-hover:focus-within::before,
-  .frame-hover:focus-within::after {
-    width: 22px;
-    height: 22px;
+  /* Over a photograph the theme accent can sink into dark tones, so boxes
+     there use one brighter green in both themes. */
+  .detect-photo {
+    border-color: #2ee6a1;
   }
 
-  /* Monogram: the site mark, set in the display face at its widest. */
-  .t-monogram {
-    font-family: var(--stack-display);
-    font-variation-settings: "wdth" 120;
-    font-weight: 700;
-    font-size: 0.8125rem;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: var(--ink);
+  .detect-photo > .tag {
+    background: #2ee6a1;
+    color: #0d0e11;
   }
 
-  /* Marker: a labelled region, called out in solid yellow. */
-  .marker {
-    background: var(--marker);
-    color: var(--on-marker);
-    padding: 0 0.16em;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
+  .tag-score {
+    font-weight: 400;
+    opacity: 0.8;
+    font-variant-numeric: tabular-nums;
   }
+}
+
+/* Lock-on: the box arrives a little loose and tightens onto its subject,
+   then the tag is printed. Used once per page, on load. */
+@keyframes lock {
+  from {
+    opacity: 0;
+    transform: scale(1.3);
+  }
+  60% {
+    opacity: 1;
+  }
+}
+
+@keyframes print {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+.lock {
+  animation: lock 650ms cubic-bezier(0.2, 0.8, 0.2, 1) 450ms both;
+}
+
+.lock > .tag {
+  animation: print 350ms steps(8, end) 1050ms both;
+}
+
+/* The same lock-on, quick and immediate, for boxes that follow the pointer. */
+.relock {
+  animation: lock 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* ============================================================
+   Work index — rows open in place. The panel grows from 0fr to 1fr so
+   its height animates without measuring; the + turns to × when open.
+   ============================================================ */
+
+.index-title {
+  transition: color 150ms ease;
+}
+
+.index-row:hover .index-title,
+.index-row[aria-expanded="true"] .index-title {
+  color: var(--accent);
+}
+
+.index-toggle {
+  position: relative;
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  color: var(--faint);
+  transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1), color 150ms ease;
+}
+
+.index-toggle::before,
+.index-toggle::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1.5px;
+  margin-top: -0.75px;
+  background: currentColor;
+}
+
+.index-toggle::after {
+  transform: rotate(90deg);
+}
+
+.index-row:hover .index-toggle,
+.index-row[aria-expanded="true"] .index-toggle {
+  color: var(--accent);
+}
+
+.index-row[aria-expanded="true"] .index-toggle {
+  transform: rotate(45deg);
+}
+
+.index-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.index-panel[data-open] {
+  grid-template-rows: 1fr;
+}
+
+.index-panel > div {
+  overflow: hidden;
+}
+
+/* ============================================================
+   Toolkit labels — square, like the class names a model is trained on.
+   ============================================================ */
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  padding: 0.3em 0.65em;
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.label:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ============================================================
+   Citations
+
+   The hero paragraph footnotes its own claims. A marker, its claim and its
+   source are tied by number; hovering or focusing any one of them lights
+   the other two, so a reader can trace a sentence to its record.
+   ============================================================ */
+
+.cite {
+  /* Inline, not inline-block: an atomic box would let the marker wrap away
+     from the punctuation it follows. */
+  margin-left: 0.05em;
+  padding: 0.1em 0.2em;
+  font-size: 0.7em;
+  vertical-align: super;
+  line-height: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  border-radius: 2px;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.claim {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--faint);
+  transition: color 150ms ease, text-decoration-color 150ms ease;
+}
+
+.source a {
+  color: var(--muted);
+}
+
+.source-title {
+  transition: color 150ms ease;
+}
+
+/* One rule per reference: CSS can't match a number across attributes. */
+.cites:has([data-cite="1"]:is(:hover, :focus-visible), [data-source="1"]:is(:hover, :focus-within)) :is([data-claim="1"], [data-source="1"] .source-title),
+.cites:has([data-cite="2"]:is(:hover, :focus-visible), [data-source="2"]:is(:hover, :focus-within)) :is([data-claim="2"], [data-source="2"] .source-title) {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+.cites:has([data-cite="1"]:is(:hover, :focus-visible), [data-source="1"]:is(:hover, :focus-within)) [data-cite="1"],
+.cites:has([data-cite="2"]:is(:hover, :focus-visible), [data-source="2"]:is(:hover, :focus-within)) [data-cite="2"] {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ============================================================
+   Hover detection — work cards box their image on hover or focus.
+   ============================================================ */
+
+/* Any element marked `hover-detect` boxes its subject on hover or focus:
+   the box arrives loose and tightens, the same lock-on as the hero. */
+.hover-detect .detect {
+  opacity: 0;
+  transform: scale(1.25);
+  transition: opacity 160ms ease, transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hover-detect:is(:hover, :focus-visible) .detect {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+   Hero entrance — the page's only unprompted motion.
+   ============================================================ */
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+}
+
+.settle {
+  animation: settle 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
 }
 
 /* ============================================================
@@ -266,35 +433,31 @@
    ============================================================ */
 
 .prose {
-  --tw-prose-body: var(--ink-muted);
+  --tw-prose-body: var(--muted);
   --tw-prose-headings: var(--ink);
-  --tw-prose-lead: var(--ink-muted);
-  --tw-prose-links: var(--signal);
+  --tw-prose-lead: var(--muted);
+  --tw-prose-links: var(--accent);
   --tw-prose-bold: var(--ink);
-  --tw-prose-counters: var(--ink-faint);
-  --tw-prose-bullets: var(--rule-strong);
+  --tw-prose-counters: var(--faint);
+  --tw-prose-bullets: var(--faint);
   --tw-prose-hr: var(--rule);
   --tw-prose-quotes: var(--ink);
-  --tw-prose-quote-borders: var(--signal-bright);
-  --tw-prose-captions: var(--ink-faint);
+  --tw-prose-quote-borders: var(--rule);
+  --tw-prose-captions: var(--faint);
   --tw-prose-code: var(--ink);
   --tw-prose-pre-code: var(--ink);
-  --tw-prose-pre-bg: var(--paper-sunk);
-  --tw-prose-th-borders: var(--rule-strong);
+  --tw-prose-pre-bg: var(--surface);
+  --tw-prose-th-borders: var(--rule);
   --tw-prose-td-borders: var(--rule);
-  font-family: var(--stack-serif);
 }
 
 .prose :where(h1, h2, h3, h4) {
-  font-family: var(--stack-display);
-}
-
-.prose :where(code, pre) {
-  font-family: var(--stack-mono);
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
 .prose :where(a) {
-  text-underline-offset: 3px;
+  text-underline-offset: 0.2em;
   text-decoration-thickness: 1px;
 }
 
@@ -307,6 +470,7 @@
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;

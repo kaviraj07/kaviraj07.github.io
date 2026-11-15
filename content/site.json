@@ -10,22 +10,12 @@
     {
       "label": "Email",
       "href": "mailto:kavirajgosaye@gmail.com",
-      "icon": "/Assets/mail.svg"
+      "icon": "/Assets/envelope.svg"
     },
     {
-      "label": "Facebook",
-      "href": "https://www.facebook.com/kaviraj.gosaye",
-      "icon": "/Assets/facebook.svg"
-    },
-    {
-      "label": "Twitter",
-      "href": "https://twitter.com/GosayeKaviraj",
-      "icon": "/Assets/twitter.svg"
-    },
-    {
-      "label": "Instagram",
-      "href": "https://www.instagram.com/kaviraj_0078/",
-      "icon": "/Assets/instagram.svg"
+      "label": "X",
+      "href": "https://x.com/GosayeKaviraj",
+      "icon": "/Assets/x.svg"
     },
     {
       "label": "LinkedIn",
@@ -270,6 +260,17 @@
   ],
   "competitions": [
     {
+      "title": "UoM Hackathon",
+      "image": "/Assets/hackathon.jpg",
+      "description": "Winner of the 3-days long competition to develop an innovative solution on the topic of Agriculture.",
+      "links": [
+        {
+          "label": "Link",
+          "href": "https://www.facebook.com/watch/?v=211085763796414"
+        }
+      ]
+    },
+    {
       "title": "UoM Web Competition",
       "image": "/Assets/web.jpg",
       "description": "Winner of the UoM Web Competition in 2019. A website had to be developed in 24hrs from scratch.",
@@ -281,6 +282,12 @@
       ]
     },
     {
+      "title": "UoM App Competition",
+      "image": "/Assets/appcup.jpg",
+      "description": "A 24 hour competition to develop a mobile application related to the SDGs.",
+      "links": []
+    },
+    {
       "title": "MCB InovApp Competition",
       "image": "/Assets/inovapp.jpg",
       "description": "A 48 hour competition organised by the MCB where ideas are developed and pitched.",
@@ -288,23 +295,6 @@
         {
           "label": "View Project",
           "href": "https://github.com/kaviraj07/MCB-InovApp"
-        }
-      ]
-    },
-    {
-      "title": "UoM App Competition",
-      "image": "/Assets/appcup.jpg",
-      "description": "A 24 hour competition to develop a mobile application related to the SDGs.",
-      "links": []
-    },
-    {
-      "title": "UoM Hackathon",
-      "image": "/Assets/hackathon.jpg",
-      "description": "Winner of the 3-days long competition to develop an innovative solution on the topic of Agriculture.",
-      "links": [
-        {
-          "label": "Link",
-          "href": "https://www.facebook.com/watch/?v=211085763796414"
         }
       ]
     }

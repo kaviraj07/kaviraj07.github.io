@@ -2,11 +2,15 @@
 
 import { ScrollProgress } from "@/components/motion-primitives/scroll-progress"
 
-/** Sits directly under the sticky header on long posts. */
+/** A hairline pinned to the top of the viewport (or under the header, when
+ *  it is showing) on long posts. */
 export function ReadingProgress() {
   return (
-    <div className="sticky top-[3.75rem] z-40 h-0.5 w-full" aria-hidden>
-      <ScrollProgress className="h-0.5 bg-signal-bright" />
+    <div
+      className="sticky top-[var(--header-offset,0px)] z-40 h-px w-full transition-[top] duration-300"
+      aria-hidden
+    >
+      <ScrollProgress className="h-px bg-accent" />
     </div>
   )
 }

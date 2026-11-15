@@ -3,25 +3,21 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import * as React from "react"
-import { Menu, X } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { Shell } from "@/components/section"
+import { Mark } from "@/components/mark"
 import { cn } from "@/lib/utils"
 import { siteData } from "@/lib/site"
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/work", label: "Work" },
-  { href: "/experience", label: "Experience" },
   { href: "/about", label: "About" },
+  { href: "/experience", label: "Experience" },
+  { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Writing" },
   { href: "/contact", label: "Contact" },
 ]
 
 function isActive(pathname: string, href: string) {
-  if (href === "/") return pathname === "/"
-  if (href === "/work") {
-    return ["/work", "/projects", "/competitions"].some((p) => pathname.startsWith(p))
-  }
   if (href === "/about") return ["/about", "/skills"].some((p) => pathname.startsWith(p))
   return pathname.startsWith(href)
 }
@@ -41,105 +37,121 @@ export function SiteHeader() {
     return () => document.removeEventListener("keydown", onKey)
   }, [open])
 
+  // Sticky, but out of the way: it slides off while reading downwards and
+  // returns on any scroll up, which is usually when someone wants to go
+  // somewhere else.
+  const ref = React.useRef<HTMLElement>(null)
+  const [hidden, setHidden] = React.useState(false)
+  const [scrolled, setScrolled] = React.useState(false)
+
+  React.useEffect(() => {
+    let last = window.scrollY
+    let frame = 0
+    const onScroll = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        const y = window.scrollY
+        setScrolled(y > 8)
+        // A small dead zone keeps trackpad jitter from flickering it.
+        if (Math.abs(y - last) > 6) {
+          setHidden(y > last && y > 120)
+          last = y
+        }
+      })
+    }
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener("scroll", onScroll)
+    }
+  }, [])
+
+  const shown = !hidden || open
+
+  // Tell sticky things below (margin titles, reading progress) how much room
+  // the header is taking, so they move clear of it instead of underneath.
+  React.useEffect(() => {
+    const h = shown && scrolled ? (ref.current?.offsetHeight ?? 0) : 0
+    document.documentElement.style.setProperty("--header-offset", `${h}px`)
+  }, [shown, scrolled])
+
+  const navLink = (l: (typeof links)[number], className: string) => {
+    const active = isActive(pathname, l.href)
+    return (
+      <Link
+        href={l.href}
+        aria-current={active ? "page" : undefined}
+        className={cn(
+          className,
+          "transition-colors hover:text-ink",
+          active ? "text-ink" : "text-muted"
+        )}
+      >
+        {l.label}
+      </Link>
+    )
+  }
+
   return (
-    <header className="sticky top-0 z-50 border-b border-rule bg-paper/85 backdrop-blur-md">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
+    <header
+      ref={ref}
+      className={cn(
+        "sticky top-0 z-50 border-b transition-[transform,background-color,border-color] duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] focus-within:translate-y-0",
+        scrolled ? "border-rule bg-bg/85 backdrop-blur-md" : "border-transparent",
+        !shown && "-translate-y-full"
+      )}
+    >
+      <Shell className="flex items-center justify-between gap-6 py-6">
         <Link
           href="/"
-          className="group flex items-center gap-3"
-          aria-label={`${siteData.name} — home`}
+          className="group flex items-center gap-3 text-[0.9375rem] font-medium"
+          translate="no"
+          aria-current={pathname === "/" ? "page" : undefined}
         >
-          {/* The monogram is set in the site's own display face rather than
-              the old raster logo, which was drawn for a different palette. */}
-          <span
-            aria-hidden
-            className="frame frame-hover grid h-9 w-9 shrink-0 place-items-center bg-raised"
-          >
-            <span className="t-monogram">{siteData.branding.monogram}</span>
-          </span>
-          {/* Name only: the hero's own eyebrow already reads "AI & software",
-              and the two sat within a second of each other on the home page. */}
-          <span
-            className="hidden text-sm font-semibold tracking-tight sm:block"
-            translate="no"
-          >
-            {siteData.name}
-          </span>
+          <Mark />
+          {siteData.name}
         </Link>
 
-        <nav aria-label="Primary" className="hidden md:block">
-          <ul className="flex items-center gap-1">
-            {links.map((l) => {
-              const active = isActive(pathname, l.href)
-              return (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    aria-current={active ? "page" : undefined}
-                    className={cn(
-                      "t-meta relative block px-3 py-2 transition-colors hover:text-ink",
-                      active && "text-ink"
-                    )}
-                  >
-                    {l.label}
-                    <span
-                      aria-hidden
-                      className={cn(
-                        "absolute inset-x-3 bottom-1 h-px origin-left scale-x-0 bg-signal-bright transition-transform duration-200",
-                        active && "scale-x-100"
-                      )}
-                    />
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
+        <div className="flex items-center gap-6">
+          <nav aria-label="Primary" className="hidden md:block">
+            <ul className="flex items-center gap-6 text-[0.9375rem]">
+              {links.map((l) => (
+                <li key={l.href}>{navLink(l, "block py-1")}</li>
+              ))}
+            </ul>
+          </nav>
 
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <button
-            type="button"
-            className="frame frame-hover inline-flex h-9 w-9 items-center justify-center text-ink transition-colors hover:text-signal md:hidden"
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            style={{ touchAction: "manipulation" }}
-          >
-            {open ? <X size={16} aria-hidden /> : <Menu size={16} aria-hidden />}
-          </button>
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+            <button
+              type="button"
+              className="inline-flex h-9 items-center px-2 text-[0.9375rem] text-muted transition-colors hover:text-ink md:hidden"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              style={{ touchAction: "manipulation" }}
+            >
+              {open ? "Close" : "Menu"}
+            </button>
+          </div>
         </div>
-      </div>
+      </Shell>
 
-      <div
+      <nav
         id="mobile-nav"
+        aria-label="Primary (mobile)"
         hidden={!open}
-        className="border-t border-rule bg-paper md:hidden"
+        className="md:hidden"
       >
-        <nav aria-label="Primary (mobile)" className="mx-auto w-full max-w-6xl px-5 py-2 sm:px-8">
-          <ul className="flex flex-col">
-            {links.map((l) => {
-              const active = isActive(pathname, l.href)
-              return (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    aria-current={active ? "page" : undefined}
-                    className={cn(
-                      "t-meta flex items-center justify-between border-b border-rule py-3 last:border-0 hover:text-ink",
-                      active && "text-signal"
-                    )}
-                  >
-                    {l.label}
-                    {active ? <span aria-hidden>—</span> : null}
-                  </Link>
-                </li>
-              )
-            })}
+        <Shell>
+          <ul className="flex flex-col border-y border-rule py-2 text-lg">
+            {links.map((l) => (
+              <li key={l.href}>{navLink(l, "block py-2.5")}</li>
+            ))}
           </ul>
-        </nav>
-      </div>
+        </Shell>
+      </nav>
     </header>
   )
 }
