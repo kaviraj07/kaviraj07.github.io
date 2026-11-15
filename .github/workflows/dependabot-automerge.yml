@@ -25,9 +25,20 @@ jobs:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Enable auto-merge (no majors)
+      # main has no branch protection, so GitHub's auto-merge can't be enabled
+      # and `gh pr merge --auto` fails whenever mergeability is still being
+      # computed (e.g. several PRs opened at once). Wait for it, then merge
+      # directly. A PR left conflicting by an earlier merge is rebased by
+      # Dependabot, which re-runs this workflow.
+      - name: Merge (no majors)
         if: steps.metadata.outputs.update-type != 'version-update:semver-major'
-        run: gh pr merge --auto --squash "$PR_URL"
+        run: |
+          for _ in $(seq 1 24); do
+            state=$(gh pr view "$PR_URL" --json mergeable -q .mergeable)
+            [ "$state" != "UNKNOWN" ] && break
+            sleep 5
+          done
+          gh pr merge --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
