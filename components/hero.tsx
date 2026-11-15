@@ -1,6 +1,5 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Row } from "@/components/section"
 import { siteData } from "@/lib/site"
 import { formatDate } from "@/lib/utils"
 import { slugify } from "@/lib/work"
@@ -44,25 +43,23 @@ function Cite({ n }: { n: number }) {
 
 export function Hero() {
   return (
-    // The portrait takes the margin column, so the headline starts on the
-    // same line every other page's content does.
-    <Row
-      as="section"
-      className="pt-12 sm:pt-20"
-      margin={
-        <div className="settle relative aspect-[4/5] w-36 overflow-hidden rounded-md bg-surface md:w-full">
-          <Image
-            src={siteData.branding.profile}
-            alt={`${siteData.name}, portrait`}
-            fill
-            sizes="(max-width: 768px) 144px, 192px"
-            fetchPriority="high"
-            className="object-cover"
-          />
-        </div>
-      }
-    >
-      <div>
+    // Same columns as <Row>, so from `md` up the portrait takes the margin and
+    // the headline starts on the line every other page's content does. Below
+    // `md` it can't stack like Row does: the headline sits beside a smaller
+    // portrait and only the paragraph onwards spans the full width.
+    <section className="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-5 pt-12 sm:pt-20 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-x-12">
+      <div className="settle relative aspect-[4/5] w-full self-start overflow-hidden rounded-md bg-surface md:row-span-2">
+        <Image
+          src={siteData.branding.profile}
+          alt={`${siteData.name}, portrait`}
+          fill
+          sizes="(max-width: 768px) 88px, 192px"
+          fetchPriority="high"
+          className="object-cover"
+        />
+      </div>
+
+      <div className="min-w-0">
         {/* leave the commented lines following as-is: */}
         {/* <p className="t-meta text-signal">Mauritius → United Kingdom</p> */}
         {/* Leading trimmed so the letters, not the line box, sit level with
@@ -74,7 +71,9 @@ export function Hero() {
 
         {/* Pulled left by roughly its side bearing so the stems line up with
             the eyebrow above. */}
-        <h1 className="t-display -ml-[0.05em] mt-5 text-[clamp(2rem,4.6vw,3.5rem)]">
+        {/* Below `md` the size tracks the viewport so "Building AI systems"
+            stays on one line beside the portrait down to ~360px phones. */}
+        <h1 className="t-display -ml-[0.05em] mt-3 text-[clamp(1.375rem,6.9vw,1.75rem)] md:mt-5 md:text-[clamp(2rem,4.6vw,3.5rem)]">
           <span className="settle block" style={step(2)}>
             Building AI systems
           </span>
@@ -85,10 +84,12 @@ export function Hero() {
             and hold up.
           </span>
         </h1>
+      </div>
 
-        {/* The paragraph cites itself: each claim carries a marker pointing to
-            the record behind it. Hovering either end lights up the other —
-            see `.cites` in globals.css. */}
+      {/* The paragraph cites itself: each claim carries a marker pointing to
+          the record behind it. Hovering either end lights up the other —
+          see `.cites` in globals.css. */}
+      <div className="col-span-2 min-w-0 md:col-span-1 md:col-start-2">
         <div className="cites mt-8 grid gap-x-12 lg:grid-cols-[minmax(0,32rem)_minmax(0,1fr)] lg:grid-rows-[auto_1fr]">
           <p className="settle t-prose text-lg lg:col-start-1 lg:row-start-1" style={step(5)}>
             Models are only as good as the context around them. I build the systems that find that context, connect the pieces and make AI outputs <Claim n={1}>more grounded and traceable</Claim>.<Cite n={1} /> I started in <Claim n={2}>computer vision</Claim>,<Cite n={2} /> where the same problem showed up in a different form: separating signal from noise.
@@ -123,6 +124,6 @@ export function Hero() {
           </div>
         </div>
       </div>
-    </Row>
+    </section>
   )
 }
