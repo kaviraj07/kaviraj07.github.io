@@ -56,7 +56,7 @@ export function Hero() {
             alt={`${siteData.name}, portrait`}
             fill
             sizes="(max-width: 768px) 144px, 192px"
-            priority
+            fetchPriority="high"
             className="object-cover"
           />
         </div>
