@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils"
 import type { WorkItem } from "@/lib/work"
 
 /**
- * A table of contents for the projects page that follows the reader: the entry
- * crossing the upper middle of the viewport is the one marked as current.
+ * A table of contents for the projects page that follows the reader: the last
+ * entry whose top has passed a third of the way down the viewport is current.
  */
 export function WorkContents({ items }: { items: WorkItem[] }) {
   const [current, setCurrent] = useState(items[0]?.slug)
@@ -16,16 +16,33 @@ export function WorkContents({ items }: { items: WorkItem[] }) {
     const els = items
       .map((i) => document.getElementById(i.slug))
       .filter((el): el is HTMLElement => el !== null)
+    if (els.length === 0) return
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) if (e.isIntersecting) setCurrent(e.target.id)
-      },
-      // A thin band a third of the way down: one entry is in it at a time.
-      { rootMargin: "-33% 0px -62% 0px" }
-    )
-    els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const line = window.innerHeight / 3
+      // On a tall screen the page ends before the last entries can reach the
+      // line, so reaching the bottom counts as reaching the last entry.
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
+      let next = els[0]
+      if (atBottom) next = els[els.length - 1]
+      else for (const el of els) if (el.getBoundingClientRect().top <= line) next = el
+      setCurrent(next.id)
+    }
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener("scroll", schedule, { passive: true })
+    window.addEventListener("resize", schedule)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener("scroll", schedule)
+      window.removeEventListener("resize", schedule)
+    }
   }, [items])
 
   return (
