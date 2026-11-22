@@ -1,9 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kaviraj Gosaye">
-  <rect width="64" height="64" rx="12" fill="#f2f3ef"/>
+  <!-- Dark tile in the site's dark-theme colours, so the icon reads on light
+       and dark backgrounds alike (browser tabs, Google's round badge). -->
+  <rect width="64" height="64" rx="12" fill="#111215"/>
   <!-- The site mark: the monogram as a detection — box plus label tab. -->
-  <rect x="10" y="17" width="44" height="38" fill="none" stroke="#00705b" stroke-width="3.5"/>
-  <rect x="8.25" y="9" width="17" height="8" fill="#00705b"/>
+  <rect x="10" y="17" width="44" height="38" fill="none" stroke="#4cc9a0" stroke-width="3.5"/>
+  <rect x="8.25" y="9" width="17" height="8" fill="#4cc9a0"/>
   <text x="32" y="44" text-anchor="middle"
         font-family="'Instrument Sans', 'Helvetica Neue', Arial, sans-serif"
-        font-size="22" font-weight="600" letter-spacing="-0.5" fill="#151815">KG</text>
+        font-size="22" font-weight="600" letter-spacing="-0.5" fill="#ecedef">KG</text>
 </svg>
